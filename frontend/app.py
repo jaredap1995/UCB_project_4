@@ -12,7 +12,13 @@ def about():
 
 @app.route('/results')
 def results():
-    return flask.render_template('results.html') #Webpage that gets results following search
+    # Simulated results from the database...to be replaced by backend group work querying database
+    results = [
+        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'make': 'Tesla', 'model': 'Model S'},
+        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'make': 'Tesla', 'model': 'Model X'},
+        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'make': 'Toyota', 'model': 'Corrola'},
+    ]
+    return flask.render_template('results.html', results=results) #Webpage that gets results following search
 
 if __name__ == "__main__":
     app.run(debug=True)
