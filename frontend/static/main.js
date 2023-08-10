@@ -16,3 +16,7 @@ function searchCars () {
     //Redirect to results after search is made
     window.location.href = "/results?query=" + query + "&price=" + priceRange + "&seats=" + carSeats;
 }
+
+function about(){
+    window.location.href = "/about"
+}
