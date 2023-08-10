@@ -6,7 +6,6 @@
     <title> Search Results </title>
     <!-- Bootstrap CSS -->
     <link rel = 'stylesheet' href = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
-</html>
 <body>
     <div class = 'container'>
         <h1> Search Results </h1>
@@ -23,7 +22,8 @@
                 <p> <strong> Year: </strong> {{ result.year }} </p>
                 <p> <strong> Price: </strong> {{ result.price }} </p>
                 <!-- We can try and add a column in the database that has a url reference for that car, nothing crazy, just a link to the brand or somehting-->
-                <a href = "https://www.carmax.com/"> More Details</a>
+                <p> <a href = "https://www.carmax.com/"> More Details</a></p> 
+                <a href = "{{url_for('car_details', car_id = result.id )}}"> Reviews and Price Prediction</a>
             </div>
         </div>
         <!-- End of Row Template for Search Results-->
@@ -31,3 +31,4 @@
 
     </div>
 </body>
+</html>
