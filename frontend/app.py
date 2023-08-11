@@ -1,6 +1,32 @@
-import flask
+import psycopg2
+import json
+from flask import Flask, jsonify, render_template
+from datetime import datetime
+import sys
+import os
+
+#################################################
+# Database Setup
+#################################################
+
+conn = psycopg2.connect(database="proj_4",
+                            user="postgres",
+                            password="postgres",
+                            host="localhost",
+                            port="5432")
+cur = conn.cursor()
+
+
+
+#################################################
+# Flask Setup
+#################################################
 
 app = flask.Flask(__name__)
+
+################################################
+# Flask Routes
+#################################################
 
 @app.route('/')
 def index():
