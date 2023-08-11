@@ -1,4 +1,4 @@
-# Sentiment Analysis Project
+# UCB_project_4
 
 
 ### Conda Env 
@@ -11,7 +11,7 @@
 
 ## Uncleaned Data
 + Data found within Kaggle: [https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data]
-+ Download csv file and place it within ```data/``` directory
++ Download csv file and place it within `data/` directory
 
 ## Clean Data
 + Run `cleaning_analysis.ipynb`
