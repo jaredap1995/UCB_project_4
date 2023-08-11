@@ -26,23 +26,48 @@
         </div>
 
         <!-- Preference Sliders -->
-        <div class = 'row justify-content-md-center'>
-            <div class = ' col-md-4 form-group'> 
-                <label for = "minPriceRange"> Minimum Price: <span id = 'minPriceRangeValue'> 1000</span></label>
-                <select id = "minPriceRange" class = 'form-control'></select>
+        <div class = 'row justify-content-md-left'>
+            <div class = ' col-md-2 form-group'> 
+                <label for = "state"> State <span id = 'stateVal'></span></label>
+                <select id = "state" class = 'form-control'></select>
             </div>
 
-            <div class = 'col-md-4 form-group'>
-                <label for = 'maxPriceRange'> Maximum Price: <span id = 'maxPriceRangeValue'> 50000</span></label>
+            <div class = 'col-md-2 form-group'>
+                <label for = 'maxPriceRange'> Max Price <span id = 'maxPriceRangeValue'></span></label>
                 <select id = 'maxPriceRange' class = 'form-control'></select>
             </div>
 
-            <div class = "col-md-4 form-group">
-                <label for ="carSeats"> Car Seats: <span id = 'carSeatsValue'> 2 </span></label>
-                <select id = 'carSeats' class = 'form-control'></select>
+            <div class = "col-md-2 form-group">
+                <label for ="condition"> Condition <span id = 'conditionVal'></span></label>
+                <select id = 'condition' class = 'form-control'></select>
+            </div>
+
+            <div class = "col-md-2 form-group">
+                <label for ="manufacturer"> Manufacturer <span id = 'manufacturerVal'></span></label>
+                <select id = 'manufacturer' class = 'form-control'></select>
+            </div>
+
+            <div class = "col-md-2 form-group">
+                <label for = "size"> Size <span id = 'sizeVal'></span></label>
+                <select id="size" class = 'form-control'></select>
             </div>
         </div>
-        <!-- </div> -->
+        <!-- Advanced Options -->
+        <div class = 'row col-md-3'>
+            <button class = 'btn btn-secondary' type = 'button' data-toggle="collapse" data-target = '#advancedOptions' aria-expanded="false" aria-controls="advancedOptions">
+                Advanced Options
+            </button> <!-- Lets make smaller at a later time-->
+            <div class="collapse" id = 'advancedOptions'>
+                <div class = 'form-group'>
+                    <label for = 'transmission'> Transmission </label>
+                    <select id = 'transmission' class = 'form-control'> </select>
+                </div>
+                <div class = 'form-group'>
+                    <label for = ''
+                </div>
+            </div>
+        </div>
+
 
         <!-- Search button -->
         <div class = 'form-group'>
