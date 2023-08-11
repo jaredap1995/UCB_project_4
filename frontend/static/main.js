@@ -61,6 +61,12 @@ let transmissionArray = ['any', 'other', 'automatic', 'manual']
 let newTransmissionArray = transmissionArray.map(function(x) {return x.charAt(0).toUpperCase() + x.slice(1,)})
 document.getElementById('transmission').innerHTML = generateStringOptions(newTransmissionArray)
 
+let odometerAraray = ['Less than 200000', 'Less than 400000', 'Less than 600000', 'Less than 800000']
+document.getElementById('odometer').innerHTML = generateStringOptions(odometerAraray)
+
+let cylinderArray = ['Any', '8 cylinders', '6 cylinders', '4 cylinders', '5 cylinders', '3 cylinders', '10 cylinders', '12 cylinders']
+document.getElementById('cylinder').innerHTML = generateStringOptions(cylinderArray)
+
 // Populates the text Value upon change
 // document.getElementById('maxPriceRange').addEventListener('input', function() {
 //     document.getElementById('maxPriceRangeValue').textContent = this.value;});
@@ -72,11 +78,11 @@ document.getElementById('transmission').innerHTML = generateStringOptions(newTra
 // Hit Search button based on query options
 function searchCars () {
     var query = document.getElementById('searchBar').value;
-    var priceMax = document.getElementById('maxPriceRange').value;
-    var carSeats = document.getElementById('carSeats').value;
+    // var priceMax = document.getElementById('maxPriceRange').value;
+    // var carSeats = document.getElementById('carSeats').value;
 
     //Redirect to results after search is made
-    window.location.href = "/results?query=" + query + "&minPrice=" + priceMin + "&maxPrice=" + priceMax + "&seats=" + carSeats;
+    window.location.href = "/results?query=" + query //+ "&minPrice=" + priceMin + "&maxPrice=" + priceMax + "&seats=" + carSeats;
 }
 
 // Navigate to teh about page
