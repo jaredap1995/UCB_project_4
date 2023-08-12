@@ -9,12 +9,12 @@ import os
 # Database Setup
 #################################################
 
-# conn = psycopg2.connect(database="proj_4",
-#                             user="postgres",
-#                             password="postgres",
-#                             host="localhost",
-#                             port="5432")
-# cur = conn.cursor()
+conn = psycopg2.connect(database="proj_4",
+                            user="postgres",
+                            password="postgres",
+                            host="localhost",
+                            port="5432")
+cur = conn.cursor()
 
 
 
