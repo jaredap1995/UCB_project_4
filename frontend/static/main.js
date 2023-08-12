@@ -78,14 +78,26 @@ document.getElementById('cylinder').innerHTML = generateStringOptions(cylinderAr
 // Hit Search button based on query options
 function searchCars () {
     var query = document.getElementById('searchBar').value;
-    // var priceMax = document.getElementById('maxPriceRange').value;
-    // var carSeats = document.getElementById('carSeats').value;
+    var priceMax = document.getElementById('maxPriceRange').value;
+    var condition = document.getElementById('condition').value;
+    var manufacturer = document.getElementById('manufacturer').value;
+    var size = document.getElementById('size').value;
+    var odometer = document.getElementById('odometer').value;
+    var state = document.getElementById('state').value;
+
 
     //Redirect to results after search is made
-    window.location.href = "/results?query=" + query //+ "&minPrice=" + priceMin + "&maxPrice=" + priceMax + "&seats=" + carSeats;
+    window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer;
 }
 
-// Navigate to teh about page
+// Navigate to the about page Button
 function about(){
     window.location.href = "/about"
 }
+
+
+//Hitting enter for search bar
+document.getElementById('searchForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    searchCars()
+})

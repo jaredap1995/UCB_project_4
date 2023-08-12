@@ -9,19 +9,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- Below this line is where unique code gets implemented -->
     <div class="container">
-        <h1>Welcome to Used Car Search Engine & Price Prediction</h1> 
-        <!-- Below this header is where unique code gets implemented -->
-        <!-- Search Bars-->
-        <div class = 'row'>
-            <div class = 'col-md-6 form-group'>
-                <input type = 'text' class = 'form-control' id = 'searchBar' placeholder = 'Search for a car'>
-            </div>
-        </div>
+        <div class = 'd-flex justify-content-between align-items-center'>
+            <h1>Used Car Search Engine</h1> 
+            <div class = 'btn btn-primary' onclick = 'about()'> Meet The Team and Learn About The Project</div>
+        </div> 
+    </div>
 
+        <!-- Search Bars-->
+    <div class="container">
         <div class = 'row'>
-            <div class = 'col-md-8 form-group'>
-                <input type = 'text' class = 'form-control' id = 'keywordBar' placeholder = 'Add any keywords to enhance your search (comfort, family, economy etc.)'>
+            <div class = 'col-md-7 form-group'>
+                <form id = 'searchForm'>
+                    <input type = 'text' class = 'form-control' id = 'searchBar' placeholder = 'Search by make, model, or keyword (refine your search with the parameters below)'>
+                </form>
             </div>
         </div>
 
@@ -51,43 +53,41 @@
                 <label for = "size"> Size <span id = 'sizeVal'></span></label>
                 <select id="size" class = 'form-control'></select>
             </div>
-        </div>
+
+            <div class = 'col-md form-group'>
+                <label for = 'odometer'> Miles </label>
+                <select id="odometer" class = 'form-control'></select>
+            </div>
+    </div>
+
         <!-- Advanced Options -->
-        <div class = 'row col-md-3'>
-            <button class = 'btn btn-secondary' type = 'button' data-toggle="collapse" data-target = '#advancedOptions' aria-expanded="false" aria-controls="advancedOptions">
-                Advanced Options
-            </button> <!-- Lets make smaller at a later time-->
-            <div class="collapse" id = 'advancedOptions'>
-                <div class = 'row'>
-                    <div class = 'col-md form-group'>
-                        <label for = 'transmission'> Transmission </label>
-                        <select id = 'transmission' class = 'form-control'> </select>
-                    </div>
-                    <div class = 'col-md form-group'>
-                        <label for = 'cylinder'> Cylinders </label>
-                        <select id = 'cylinder' class = 'form-control'></select>
-                    </div>
-                    <div class = 'col-md form-group'>
-                        <label for = 'odometer'> Miles </label>
-                        <select id="odometer" class = 'form-control'></select>
-                    </div>
-                </div>
-            
+        <div class = 'row justify-content-between'>
+            <div class = 'col-auto'>
+                <button class = 'btn btn-secondary' type = 'button' data-toggle="collapse" data-target = '#advancedOptions' aria-expanded="false" aria-controls="advancedOptions">
+                    Advanced Options
+                </button> <!-- Lets make smaller at a later time-->
+            </div>
+            <div class = 'col-auto'>
+                <button class = 'btn btn-primary' onclick = 'searchCars()'> Search </button>
             </div>
         </div>
-
-
-        <!-- Search button -->
-        <div class = 'form-group'>
-            <!-- <div class = 'container'>
-                <div class = 'text-center'>
-                    <button class = 'btn btn-primary' onclick = 'searchCars()'> Search </button> -->
-            <button class = 'btn btn-primary' onclick = 'searchCars()'> Search </button>
-            <!-- </div> -->
-            <!-- </div> -->
+        <div class="collapse" id = 'advancedOptions'>
+            <div class = 'row'>
+                <div class = 'col-md-2 form-group'>
+                    <label for = 'transmission'> Transmission </label>
+                    <select id = 'transmission' class = 'form-control'> </select>
+                </div>
+                <div class = 'col-md-2 form-group'>
+                    <label for = 'cylinder'> Cylinders </label>
+                    <select id = 'cylinder' class = 'form-control'></select>
+                </div>
+                <!-- Another Advanced Option Here-->
+                </div>
         </div>
-
+    </div>
+    
         <!-- Photo Image Gallery-->
+    <div class="container">
         <div id = 'carCarousel' class = 'carousel slide' data-ride = 'carousel'>
             <div class = 'carousel-inner'>
                 <div class = "carousel-item active">
@@ -107,11 +107,7 @@
             <span class = 'sr-only'>Next</span>
             </a>
         </div>    
-    <!-- This div closes off the Search Engine container-->  
-    </div>
-
-    <div class = 'container'>
-        <div class = 'btn btn-primary' onclick = 'about()'> Meet The Team and Learn About The Project</div>
+    <!-- This div closes off the Image container-->  
     </div>
 
     <!-- Above this line is where unique code layout ends. Below are imports -->
