@@ -9,12 +9,12 @@ import os
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="postgres",
-                            host="localhost",
-                            port="5432")
-cur = conn.cursor()
+# conn = psycopg2.connect(database="proj_4",
+#                             user="postgres",
+#                             password="postgres",
+#                             host="localhost",
+#                             port="5432")
+# cur = conn.cursor()
 
 
 
@@ -41,10 +41,20 @@ def results():
     # Simulated results from the database...to be replaced by backend group work querying database
     ##### Sample Code ######
     results = [
-        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'make': 'Tesla', 'model': 'Model S', 'id': 1},
-        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'make': 'Tesla', 'model': 'Model X', 'id': 2},
-        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'make': 'Toyota', 'model': 'Corrola', 'id': 3},
+        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Tesla', 'model': 'Model S', 'id': 1, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Tesla', 'model': 'Model X', 'id': 2, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Toyota', 'model': 'Corrola', 'id': 3, 'size': 'Any', 'condition': 'Any'},
     ]
+
+    reccomendations = [
+         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
+         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
+    ]
+
     ##########################
 
 
@@ -64,7 +74,7 @@ def results():
 
 
 
-    return render_template('results.html', results=results) #Webpage that gets results following search
+    return render_template('results.html', results=results, reccomendations=reccomendations) #Webpage that gets results following search
 
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
