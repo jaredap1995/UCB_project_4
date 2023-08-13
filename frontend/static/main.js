@@ -84,10 +84,12 @@ function searchCars () {
     var size = document.getElementById('size').value;
     var odometer = document.getElementById('odometer').value;
     var state = document.getElementById('state').value;
+    var transmission = document.getElementById('transmission').value;
+    var cylinders = document.getElementById('cylinder').value;
 
 
     //Redirect to results after search is made
-    window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer;
+    window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer + "&transmission=" + transmission + "&cylinders=" + cylinders;
 }
 
 // Navigate to the about page Button

@@ -13,7 +13,7 @@
             <div class = 'col-md-8'>
                 <h1> Search Results </h1>
                 <!-- Jinja 2 For loop-->
-                {% for result in results %}
+                {% for result in results[:10] %}
                 <!-- Row Template for Search Results -->
                 <div class = 'row mb-2'>
                     <div class = 'col-md-6'>
