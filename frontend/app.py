@@ -32,9 +32,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html') #Home page that has search engine/preferences and rotating images
 
+@app.route('/team')
+def team():
+    return render_template('team.html') 
+
 @app.route('/about')
 def about():
-    return render_template('about.html') #Make a page to describe the project
+     return render_template('about.html')
+
 
 @app.route('/results')
 def results():

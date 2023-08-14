@@ -93,9 +93,11 @@ function searchCars () {
 }
 
 // Navigate to the about page Button
-function about(){
-    window.location.href = "/about"
+function team(){
+    window.location.href = "/team"
 }
+
+// function 
 
 
 //Hitting enter for search bar
