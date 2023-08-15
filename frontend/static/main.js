@@ -116,7 +116,6 @@ document.getElementById('notificationForm').addEventListener('submit', function(
 
 
 
-
 //Hitting enter for search bar
 document.getElementById('searchForm').addEventListener('submit', function(e) {
     e.preventDefault();

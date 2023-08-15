@@ -11,30 +11,8 @@
 </head>
 
 <body>
-    <!-- Persisting Nav Bar-->
-    <!-- <nav id = 'header' class="navbar navbar-expand-lg navbar-white bg-white">
-        <div id="faq" class="btn btn-primary" onclick="about()"> Learn About The Project </div>
-        <div class = 'logo-container'>
-            <a class="logo-link" href="/">
-                <div class = 'logo-wrapper'>
-                    <img src = "{{ url_for('static', filename = 'index/wheel.png')}}" alt = "Used Car Price Prediction" class = 'logo'>
-                </div>
-            </a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <div id="aboutButton" class="btn btn-primary" onclick="team()">Meet The Team </div>
-              <button id = 'signUpButton' type = 'button' class = 'btn btn-primary' data-toggle="modal" data-target="#notificationModal"> Sign Up for Updates</button>
-            </li>
-          </ul>
-        </div>
-      </nav> -->
-
-
+    {% extends "nav.html" %}
+    {% block content %}
     <div class="container my-5">
         <!-- Why this project section -->
         <div class="row mb-4">
@@ -90,4 +68,14 @@
             </div>
         </div>
     </div>
+    {% endblock %}
+     <!-- Javascript file imports-->
+     <!-- Above this line is where unique code layout ends. Below are imports -->
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+     <script src = "{{ url_for('static', filename = 'main.js')}}"></script>
 </body>
+</html>
