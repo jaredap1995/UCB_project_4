@@ -22,19 +22,22 @@ cur = conn.cursor()
 # Flask Setup
 #################################################
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 ################################################
 # Flask Routes
 #################################################
 
+"""
+Home page that has search engine/preferences and rotating images
+"""
 @app.route('/')
 def index():
-    return flask.render_template('index.html') #Home page that has search engine/preferences and rotating images
+    return render_template('index.html') 
 
 @app.route('/about')
 def about():
-    return flask.render_template('about.html') #Make a page to describe the project
+    return render_template('about.html') #Make a page to describe the project
 
 @app.route('/results')
 def results():
@@ -64,7 +67,7 @@ def results():
 
 
 
-    return flask.render_template('results.html', results=results) #Webpage that gets results following search
+    return render_template('results.html', results=results) #Webpage that gets results following search
 
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
@@ -95,7 +98,7 @@ def car_details(car_id):
     """
     #################################
 
-    return flask.render_template('car.html', car = car)
+    return render_template('car.html', car = car)
 
 if __name__ == "__main__":
     app.run(debug=True)
