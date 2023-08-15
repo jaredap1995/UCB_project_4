@@ -16,6 +16,29 @@
         cursor: pointer;
 }
 
+#signUpButton {
+        position: left;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 50px;
+        background: linear-gradient(to right, #487fee, #b632fa);
+        border: none;
+        outline: none;
+        border-radius: 35px;
+        z-index: 2;
+        font-size: 14px;
+        font-weight: 700;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        cursor: pointer;
+}
+
+#signUpButton:hover {
+    background: linear-gradient(to right,  #b632fa, #487fee); 
+}
+
+
 #aboutButton:hover {
     background: linear-gradient(to right,  #b632fa, #487fee); 
 }

@@ -92,7 +92,7 @@ function searchCars () {
     window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer + "&transmission=" + transmission + "&cylinders=" + cylinders;
 }
 
-// Navigate to the team/about page Button
+// Navigate to pages Buttons
 function team(){
     window.location.href = "/team"
 }
@@ -101,7 +101,20 @@ function about(){
     window.location.href = "/about"
 }
 
-// function 
+//Sign Up Notification
+document.getElementById('notificationForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const email = document.getElementById('formEmail').value
+    //Build Backend API to send email
+
+
+    //Send Alert for email
+    $('#notificationModal').modal('hide');
+    alert(`Thank you for signing up! Updates will be sent to ${email}`)
+})
+
+
 
 
 //Hitting enter for search bar

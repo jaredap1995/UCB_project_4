@@ -11,6 +11,7 @@
 </head>
 <body>
     <!-- Below this line is where unique code gets implemented -->
+    <!-- Persist this Nav Bar to all other Pages-->
     <nav id = 'header' class="navbar navbar-expand-lg navbar-white bg-white">
         <div id="faq" class="btn btn-primary" onclick="about()"> Learn About The Project </div>
         <div class = 'logo-container'>
@@ -27,10 +28,46 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <div id="aboutButton" class="btn btn-primary" onclick="team()">Meet The Team </div>
+              <button id = 'signUpButton' type = 'button' class = 'btn btn-primary' data-toggle="modal" data-target="#notificationModal"> Sign Up for Updates</button>
             </li>
           </ul>
         </div>
       </nav>
+
+      <!-- Sign Up Fade-->
+      <div class = 'modal fade' id = 'notificationModal' tabindex ="-1" role = 'dialog' aria-labelledby = 'notificationModalLabel' aria-hidden="true">
+        <div class = 'modal-dialog' role = 'document'>
+            <div class = 'modal-content'>
+                <div class = 'modal-header'>
+                    <h5 class = 'modal-title'> Sign Up for Notifications</h5>
+                    <button type = 'button' class = 'close' data-dismiss="modal" aria-label = 'Close'>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class = 'modal-body'>
+                    <form id = 'notificationForm'>
+
+                        <div class="form-group">
+                        <input type="name" id="formName" class="form-control form-control-lg" />
+                        <label class="form-label" for="formName">Your Name</label>
+                        </div>
+        
+                        <div class="form-outline mb-4">
+                        <input type="email" id="formEmail" class="form-control form-control-lg" aria-describedby="emailHelp"/>
+                        <label class="form-label" for="formEmail">Your Email</label>
+                        </div>
+        
+                        <div class="d-flex justify-content-center">
+                        <button type="submit"
+                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                        </div>
+        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
       
       
 
