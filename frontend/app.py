@@ -1,9 +1,12 @@
 import psycopg2
 import json
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from datetime import datetime
 import sys
 import os
+
+# utils 
+import helpers as ht
 
 #################################################
 # Database Setup
@@ -33,13 +36,17 @@ Home page that has search engine/preferences and rotating images
 """
 @app.route('/')
 def index():
+
+    # assign DF to variable
+    df = ht.get_df()
+    print(df)
     return render_template('index.html') 
 
 @app.route('/about')
 def about():
     return render_template('about.html') #Make a page to describe the project
 
-@app.route('/results')
+@app.route('/results', methods=["POST", "GET"])
 def results():
     # Simulated results from the database...to be replaced by backend group work querying database
     ##### Sample Code ######
@@ -62,7 +69,15 @@ def results():
     
 
     """
-
+    """
+    minPrice, maxPrice, condition, searchManufacturer
+    """
+    df = ht.get_df()
+    # TODO get user input and filter the DF to a subset of the users attributes, render the results on results endpoint
+    try:
+        search_bar = request.form.get('search')
+    except ValueError:
+         print()
     #########################################
 
 
@@ -101,4 +116,5 @@ def car_details(car_id):
     return render_template('car.html', car = car)
 
 if __name__ == "__main__":
+    # print("test", ht.get_df())
     app.run(debug=True)
