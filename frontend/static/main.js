@@ -92,9 +92,13 @@ function searchCars () {
     window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer + "&transmission=" + transmission + "&cylinders=" + cylinders;
 }
 
-// Navigate to the about page Button
+// Navigate to the team/about page Button
 function team(){
     window.location.href = "/team"
+}
+
+function about(){
+    window.location.href = "/about"
 }
 
 // function 
