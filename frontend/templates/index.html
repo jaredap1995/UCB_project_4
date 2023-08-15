@@ -13,46 +13,51 @@
         <h1>Welcome to Used Car Search Engine & Price Prediction</h1> 
         <!-- Below this header is where unique code gets implemented -->
         <!-- Search Bars-->
-        <div class = 'row'>
-            <div class = 'col-md-6 form-group'>
-                <input type = 'text' class = 'form-control' id = 'searchBar' placeholder = 'Search for a car'>
-            </div>
-        </div>
-
-        <div class = 'row'>
-            <div class = 'col-md-8 form-group'>
-                <input type = 'text' class = 'form-control' id = 'keywordBar' placeholder = 'Add any keywords to enhance your search (comfort, family, economy etc.)'>
-            </div>
-        </div>
-
-        <!-- Preference Sliders -->
-        <div class = 'row justify-content-md-center'>
-            <div class = ' col-md-4 form-group'> 
-                <label for = "minPriceRange"> Minimum Price: <span id = 'minPriceRangeValue'> 1000</span></label>
-                <select id = "minPriceRange" class = 'form-control'></select>
+        <form action="/results" method="post">
+            <!-- START FORM ELE -->
+            <div class = 'row'>
+                <div class = 'col-md-6 form-group'>
+                    <input type = 'text' class = 'form-control' for='search' id = 'searchManufacturer' name ='searchManufacturer' placeholder = 'Search for a Manufacturer'>
+                    <select id = "searchManufacturer" class = 'form-control'></select>
+                </div>
             </div>
 
-            <div class = 'col-md-4 form-group'>
-                <label for = 'maxPriceRange'> Maximum Price: <span id = 'maxPriceRangeValue'> 50000</span></label>
-                <select id = 'maxPriceRange' class = 'form-control'></select>
+            <div class = 'row'>
+                <div class = 'col-md-8 form-group'>
+                    <input type = 'text' class = 'form-control' for='search' id = 'condition'  name ='condition' placeholder = "condition you'd like (like new, new, excel)">
+                </div>
             </div>
 
-            <div class = "col-md-4 form-group">
-                <label for ="carSeats"> Car Seats: <span id = 'carSeatsValue'> 2 </span></label>
-                <select id = 'carSeats' class = 'form-control'></select>
-            </div>
-        </div>
-        <!-- </div> -->
+            <!-- Preference Sliders -->
+            <div class = 'row justify-content-md-center'>
+                <div class = ' col-md-4 form-group'> 
+                    <label for='search' name="minPrice"> Minimum Price: <span id = 'minPriceRangeValue'> 1000</span></label>
+                    <select id = "minPriceRange" class = 'form-control'></select>
+                </div>
 
-        <!-- Search button -->
-        <div class = 'form-group'>
-            <!-- <div class = 'container'>
-                <div class = 'text-center'>
-                    <button class = 'btn btn-primary' onclick = 'searchCars()'> Search </button> -->
-            <button class = 'btn btn-primary' onclick = 'searchCars()'> Search </button>
+                <div class = 'col-md-4 form-group'>
+                    <label for='search' name="maxPrice"> Maximum Price: <span id = 'maxPriceRangeValue'> 50000</span></label>
+                    <select id = 'maxPriceRange' class = 'form-control'></select>
+                </div>
+
+                <div class = "col-md-4 form-group">
+                    <label for='search'> Car Seats: <span id = 'carSeatsValue'> 2 </span></label>
+                    <select id = 'carSeats' class = 'form-control'></select>
+                </div>
+            </div>
             <!-- </div> -->
-            <!-- </div> -->
-        </div>
+
+            <!-- Search button -->
+            <div class = 'form-group'>
+                <!-- <div class = 'container'>
+                    <div class = 'text-center'>
+                        <button class = 'btn btn-primary' onclick = 'searchCars()'> Search </button> -->
+                <button class = 'btn btn-primary' onclick = 'searchCars()' id="search" name="search"> Search </button>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </form>
+        <!-- END FORM ELE -->
 
         <!-- Photo Image Gallery-->
         <div id = 'carCarousel' class = 'carousel slide' data-ride = 'carousel'>
