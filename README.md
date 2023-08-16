@@ -7,7 +7,7 @@
 + Activate conda environment
 `conda activate rootenv`
 + Install needed packages
-`pip install python scikit-learn pandas numpy psycopg2 flask ipython-sql sqlalchemy`
+`pip install python scikit-learn pandas numpy psycopg2 flask ipython-sql sqlalchemy dash`
 
 ## Uncleaned Data
 + Data found within Kaggle: [https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data]
