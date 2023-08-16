@@ -57,7 +57,8 @@ let size = ['any', 'full-size', 'mid-size', 'compact', 'sub-compact']
 let newSize = size.map(function(x) { return x.charAt(0).toUpperCase() + x.slice(1,)})
 document.getElementById('size').innerHTML = generateStringOptions(newSize)
 
-let transmissionArray = ['any', 'other', 'automatic', 'manual']
+// Potentially remove 'any'
+let transmissionArray = ['any', 'automatic', 'manual']
 let newTransmissionArray = transmissionArray.map(function(x) {return x.charAt(0).toUpperCase() + x.slice(1,)})
 document.getElementById('transmission').innerHTML = generateStringOptions(newTransmissionArray)
 

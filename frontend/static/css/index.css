@@ -16,6 +16,12 @@
         cursor: pointer;
 }
 
+#title1{
+    text-align: center;
+    padding: 2em;
+    /* color: rgb(red, green, blue) */
+}
+
 #signUpButton {
         position: left;
         top: 0;
