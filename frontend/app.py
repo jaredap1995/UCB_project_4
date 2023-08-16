@@ -12,10 +12,10 @@ import pandas as pd
 
 conn = psycopg2.connect(database="proj_4",
                             user="postgres",
-                            password="Ulysses@5280+", #password="postgres"
+                            password="postgres", #password="Ulysses@5280+" ~~ Kyle Password
                             host="localhost",
-                            port = "5433"
-                            # port="5432"
+                            port="5432"
+                            # port = "5433" Kyle Port
                             )
 cur = conn.cursor()
 
@@ -99,11 +99,11 @@ def results():
 
     #########################################
     # Sql query for user selection on car.html
-    search_q = f'''SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition > {condition} AND manufacturer = {manufacturer} \
-                          and size = {size} and miles < {odometer}'''
-    rows=cur.fetchmany(4)
-    rows=pd.DataFrame(rows).tojson()
-    return rows
+    # search_q = f'''SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition > {condition} AND manufacturer = {manufacturer} \
+    #                         and size = {size} and miles < {odometer}'''
+    #     rows=cur.fetchmany(4)
+    #     rows=pd.DataFrame(rows).tojson()
+    #     return rows
     
     #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
 
