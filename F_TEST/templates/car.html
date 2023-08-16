@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head >
+        <meta charset = 'UTF-8'>
+        <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+        <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'>
+        <title> Search Results </title>
+        <!-- Bootstrap CSS -->
+        <link rel = 'stylesheet' href = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+    </head>
+    <body> 
+        {% extends "nav.html" %}
+        {% block content %}
+        <h1> {{ car.make }} {{ car.model }} </h1>
+        <p> {{ car.year }}</p>
+        <p> {{ car.make }}</p>
+        <p> {{ car.model }} </p>
+        <p> {{ car.price_predctrion }} </p>
+        {% endblock %}
+    </body>
+     <!-- Javascript file imports-->
+     <!-- Above this line is where unique code layout ends. Below are imports -->
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+     <script src = "{{ url_for('static', filename = 'main.js')}}"></script>
+</html>
