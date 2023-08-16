@@ -114,6 +114,14 @@ document.getElementById('notificationForm').addEventListener('submit', function(
     alert(`Thank you for signing up! Updates will be sent to ${email}`)
 })
 
+function scrollToNavBar(event){
+    event.preventDefault();
+    $('html, body').animate({
+        scrollTop: $("#header").offset().top()
+    }, 1000)
+    // const navbar = document.getElementById('header')
+    // navbar.scrollIntoView({behavior: "smooth" })
+}
 
 
 //Hitting enter for search bar
