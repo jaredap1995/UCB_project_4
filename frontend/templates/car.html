@@ -7,15 +7,42 @@
         <title> Search Results </title>
         <!-- Bootstrap CSS -->
         <link rel = 'stylesheet' href = 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+        <link rel = 'stylesheet' href = "{{ url_for ('static', filename = 'css/car.css') }}">
     </head>
     <body> 
         {% extends "nav.html" %}
         {% block content %}
-        <h1> {{ car.make }} {{ car.model }} </h1>
-        <p> {{ car.year }}</p>
-        <p> {{ car.make }}</p>
-        <p> {{ car.model }} </p>
-        <p> {{ car.price_predctrion }} </p>
+        <div class = 'container'>
+            <div class = 'row'>
+                <div class = 'col-md-12'>
+                        <div class="p-3 shadow">
+                            <div class = 'row'>
+
+                                <div class="col-md-6 mb-4">
+                                    <h1> {{ car.year }} {{ car.manufacturer }} </h1>
+                                    <p> <strong> Price Estimate: {{ car.price_predction }} </strong></p>
+                                    <p> Condition: {{ car.condition }}</p>
+                                    <p> Fuel Type: {{ car.fuel }}</p>
+                                    <p> Miles: {{ car.odometer }} </p>
+                                    <p> Type of Transmission: {{ car.transmission }} </p>
+                                    <p> Wheel Drive Type: {{ car.drive }} </p>
+                                    <p> Car Size: {{ car.size }} </p>
+                                    <p> Car Type: {{ car.type }} </p>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <div class="p-3 shadow">
+                                        <!-- Insert your image here -->
+                                        <img src="{{ car.image }}" alt="{{ car.year }} {{ car.manufacturer }}" class="img-fluid">
+                                        
+                                        <!-- Additional content can be added here if needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
         {% endblock %}
     </body>
      <!-- Javascript file imports-->

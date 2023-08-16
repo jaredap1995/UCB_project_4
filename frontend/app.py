@@ -5,6 +5,7 @@ from datetime import datetime
 import sys
 import os
 import pandas as pd
+from helper import get_image_url
 
 #################################################
 # Database Setup
@@ -55,9 +56,6 @@ def results():
     # importing Dataframe from elacticnet regression
     # elas_df = pd.read_pickle("[FILENAME.pkl]")
 
-    
-    
-    ##########################
 
 
     ########### Actual Code ################
@@ -71,15 +69,19 @@ def results():
     transmission = request.form.get('transmission')
     cylinder = request.form.get('cylinder')
     conditions = [state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder]
-    #  return f"Selected values: Dropdown 1: {dropdown1_value}, and {state}"
 
-    #Something Like
+    # #Base query
+    # base_query = 'select * from used_cars where 1=1;'
+    # params=[]
+    # for param in conditions:
+    #     if param and param != "Any":
+    #         base_query += " AND %s "
 
     cur.execute(f"select * from used_cars where price < {maxPriceRange} and odometer <= '{odometer}';")
-    columns=['id',"price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date"]
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
     results=cur.fetchall()
-    results=pd.DataFrame(results).reset_index()
+    results=pd.DataFrame(results)
     results.columns=columns
     results=[results.iloc[s].to_dict() for s in range(len(results))]
     for i in range(len(results)):
@@ -93,7 +95,7 @@ def results():
     # search_q = f'''SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition > {condition} AND manufacturer = {manufacturer} \
     #                         and size = {size} and miles < {odometer}'''
     #     rows=cur.fetchmany(4)
-    #     rows=pd.DataFrame(rows).tojson()
+        # rows=pd.DataFrame(rows).tojson()
     #     return rows
     
     #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
@@ -102,40 +104,19 @@ def results():
 
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
-    # car = get_car_details(car_id) #Python functions that queries database for specific car and returns the details. Car_id=unique id of car in database
-    # prediction = get_price_prediction(car_id)
-    
-    ########### Sample Code #########
-    results = [
-        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'make': 'Tesla', 'model': 'Model S', 'id': 1},
-        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'make': 'Tesla', 'model': 'Model X', 'id': 2},
-        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'make': 'Toyota', 'model': 'Corrola', 'id': 3},
-    ]
-
-    reccomendations = [
-         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
-         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
-    ]
-    for val in results:
-            if val['id']==car_id:
-                car=val
-    #################################
-
-
-    ###### ----- Actual code ------ #############
     
     #Something Like
-    """
-    cursor.execute(Select * from used_cars where id = car_id returning blah blah)
-    rows=cursor.fetchall()
-    rows=pd.DataFrame(rows).todict()/json
-    car=rows
-    """
-    #################################
+    cur.execute(f"Select * from used_cars where id = {car_id}")
+    car=cur.fetchone()
+    if not car:
+        return ValueError()
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+    car=pd.Series(car, index = columns).to_dict()
+    query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
+    car['image'] = get_image_url(query)
+    print(car['image'])
+
+    reccomendations=0 ##Code Here that will fire up the model and get a reccomendation for the car based on parameters
 
     return render_template('car.html', car = car, reccomendations=reccomendations)
 
