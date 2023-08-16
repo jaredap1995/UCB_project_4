@@ -4,6 +4,8 @@ from flask import Flask, jsonify, render_template
 from datetime import datetime
 import sys
 import os
+import car_recommender
+import elasticnet_regression
 
 #################################################
 # Database Setup
@@ -59,6 +61,11 @@ def results():
         {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
         {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
     ]
+
+    # Importing Dataframe from car_reccomender and elasticent_regression
+    rec_df = car_recommender.recommended_cars # 3 cars reccomended from car_recommender
+    sel_df = car_recommender.selected_cars # 1 car selected from car_recommender
+
 
     ##########################
 
