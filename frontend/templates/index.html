@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,100 +8,115 @@
     <title>Used Car Price Prediction</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel = 'stylesheet' href = "{{ url_for ('static', filename = 'css/index.css') }}">
+    <link rel='stylesheet' href="{{ url_for ('static', filename = 'css/index.css') }}">
 </head>
+
 <body>
     {% extends "nav.html" %}
     {% block content %}
     <!-- Search Bars-->
     <h1 class="title1">Find your next vehicle that fits your needs!</h1>
-    <div class="container">
-        <div id = 'preferenceSliders'>
-            <div class = 'row'>
-                <div class = 'col-md-12 form-group'>
-                    <form id = 'searchForm'>
-                        <input type = 'text' class = 'form-control' id = 'searchBar' placeholder = 'Search by make, model, or keyword (refine your search with the parameters below)'>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Preference Sliders -->
-            <div class = 'container'>
-                <div class = 'row justify-content-md-left'>
-                    <div class = ' col-md-2 form-group'> 
-                        <label for = "state"> State <span id = 'stateVal'></span></label>
-                        <select id = "state" class = 'form-control'></select>
+    <form action="/results" method="POST">
+        <div class="container">
+            <div id='preferenceSliders'>
+                <!-- <div class='row'>
+                    <div class='col-md-12 form-group'>
+                        <form id='searchForm'>
+                            <input type='text' class='form-control' id='searchBar'
+                                placeholder='Search by make, model, or keyword (refine your search with the parameters below)'>
+                        </form>
                     </div>
+                </div> -->
 
-                    <div class = 'col-md-2 form-group'>
-                        <label for = 'maxPriceRange'> Max Price <span id = 'maxPriceRangeValue'></span></label>
-                        <select id = 'maxPriceRange' class = 'form-control'></select>
-                    </div>
+                <!-- Preference Sliders -->
+                <div class='container'>
+                    <div class='row justify-content-md-left'>
+                        <div class=' col-md-2 form-group'>
+                            <label for="state">State</label>
+                            <select id="state" name='state' class='form-control'>
+                                <option id='state'></option>
+                            </select>
+                        </div>
 
-                    <div class = "col-md-2 form-group">
-                        <label for ="condition"> Condition <span id = 'conditionVal'></span></label>
-                        <select id = 'condition' class = 'form-control'></select>
-                    </div>
+                        <div class='col-md-2 form-group'>
+                            <label for='maxPriceRange'>Max Price</label>
+                            <select id='maxPriceRange' name='maxPriceRange' class='form-control'>
+                                <option id='maxPriceRangeValue'></option>
+                            </select>
+                        </div>
 
-                    <div class = "col-md-2 form-group">
-                        <label for ="manufacturer"> Manufacturer <span id = 'manufacturerVal'></span></label>
-                        <select id = 'manufacturer' class = 'form-control'></select>
-                    </div>
+                        <div class="col-md-2 form-group">
+                            <label for="condition">Condition</label>
+                            <select id='condition' name="condition" class='form-control'>
+                                <option id='conditionVal'></option>
+                            </select>
+                        </div>
 
-                    <div class = "col-md-2 form-group">
-                        <label for = "size"> Size <span id = 'sizeVal'></span></label>
-                        <select id="size" class = 'form-control'></select>
-                    </div>
+                        <div class="col-md-2 form-group">
+                            <label for="manufacturer">Manufacturer</label>
+                            <select id='manufacturer' name="manufacturer" class='form-control'>
+                                <option id='manufacturerVal'></option>
+                            </select>
+                        </div>
 
-                    <div class = 'col-md form-group'>
-                        <label for = 'odometer'> Miles </label>
-                        <select id="odometer" class = 'form-control'></select>
+                        <div class="col-md-2 form-group">
+                            <label for="size">Size</label>
+                            <select id="size" name="size" class='form-control'>
+                                <option id='sizeVal'></option>
+                            </select>
+                        </div>
+
+                        <div class='col-md form-group'>
+                            <label for='odometer'> Miles </label>
+                            <select id="odometer" name="odometer" class='form-control'></select>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <!-- Advanced Options -->
-        <div class = 'container'>
-            <div id = 'advancedOptionsContainer' class = 'row justify-content-between'>
-                <div class = 'col-auto'>
-                    <button id = 'advancedOptionsButton' class = 'btn btn-secondary' type = 'button' data-toggle="collapse" data-target = '#advancedOptionsRow' aria-expanded="false" aria-controls="advancedOptionsRow">
+        <div class='container'>
+            <div id='advancedOptionsContainer' class='row justify-content-between'>
+                <div class='col-auto'>
+                    <button id='advancedOptionsButton' class='btn btn-secondary' type='button' data-toggle="collapse"
+                        data-target='#advancedOptionsRow' aria-expanded="false" aria-controls="advancedOptionsRow">
                         Advanced Options
                     </button> <!-- Lets make smaller at a later time-->
                 </div>
-                <div class = 'col-auto'>
-                    <button id = 'searchButton' class = 'btn btn-primary' onclick = 'searchCars()'> Search </button>
+                <div class='col-auto'>
+                    <input type="submit" id='searchButton' class='btn btn-primary' onclick='searchCars()'> Search </input>
                 </div>
             </div>
-            <div class="collapse" id = 'advancedOptionsRow'>
-                <div class = 'row'>
-                    <div class = 'col-md-2 form-group'>
-                        <label for = 'transmission'> Transmission </label>
-                        <select id = 'transmission' class = 'form-control'> </select>
+            <div class="collapse" id='advancedOptionsRow'>
+                <div class='row'>
+                    <div class='col-md-2 form-group'>
+                        <label for='transmission'> Transmission </label>
+                        <select id='transmission' name="transmission" class='form-control'> </select>
                     </div>
-                    <div class = 'col-md-2 form-group'>
-                        <label for = 'cylinder'> Cylinders </label>
-                        <select id = 'cylinder' class = 'form-control'></select>
+                    <div class='col-md-2 form-group'>
+                        <label for='cylinder'> Cylinders </label>
+                        <select id='cylinder' name="cylinder" class='form-control'></select>
                     </div>
                     <!-- Another Advanced Option Here-->
-                    </div>
+                </div>
             </div>
         </div>
-    
-    
-        <!-- Photo Image Gallery-->
+    </form>
+
+
+    <!-- Photo Image Gallery-->
     <div class="container">
-        <div id = 'carCarousel' class = 'carousel slide' data-ride = 'carousel'>
-            <div class = 'row'>
-                <div class = 'col-12 text-center'>
-                    <img src = "{{ url_for('static', filename= 'index/driving.gif') }}" alt = "Car-Gif" class = 'img-fluid'>
+        <div id='carCarousel' class='carousel slide' data-ride='carousel'>
+            <div class='row'>
+                <div class='col-12 text-center'>
+                    <img src="{{ url_for('static', filename= 'index/driving.gif') }}" alt="Car-Gif" class='img-fluid'>
                 </div>
 
 
-               
+
             </div>
-        </div>    
+        </div>
     </div>
     {% endblock %}
 
@@ -111,6 +127,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Javascript file imports-->
-    <script src = "{{ url_for('static', filename = 'main.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'main.js')}}"></script>
 </body>
+
 </html>

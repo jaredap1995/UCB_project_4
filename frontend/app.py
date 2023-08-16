@@ -1,6 +1,6 @@
 import psycopg2
 import json
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from datetime import datetime
 import sys
 import os
@@ -44,7 +44,7 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/results')
+@app.route('/results', methods=['GET','POST'])
 def results():
     # Simulated results from the database...to be replaced by backend group work querying database
     ##### Sample Code ######
@@ -81,7 +81,17 @@ def results():
 
 
     ########### Actual Code ################
-
+    # Target the `name` attribute in each select element from index.html
+    state = request.form.get('state')
+    maxPriceRange = request.form.get('maxPriceRange')
+    condition = request.form.get('condition')
+    manufacturer = request.form.get('manufacturer')
+    size = request.form.get('size')
+    odometer = request.form.get('odometer')
+    transmission = request.form.get('transmission')
+    cylinder = request.form.get('cylinder')
+    print(state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder)
+    #  return f"Selected values: Dropdown 1: {dropdown1_value}, and {state}"
     #Something Like
     """
     cursor.execute(select * from used_cars where price<20000 and price>100000 and 'year' > 2012)
