@@ -4,8 +4,7 @@ from flask import Flask, jsonify, render_template
 from datetime import datetime
 import sys
 import os
-import car_recommender
-import elasticnet_regression
+import pandas as pd
 
 #################################################
 # Database Setup
@@ -13,9 +12,11 @@ import elasticnet_regression
 
 conn = psycopg2.connect(database="proj_4",
                             user="postgres",
-                            password="postgres",
+                            password="Ulysses@5280+", #password="postgres"
                             host="localhost",
-                            port="5432")
+                            port = "5433"
+                            # port="5432"
+                            )
 cur = conn.cursor()
 
 
@@ -61,12 +62,21 @@ def results():
         {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
         {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
     ]
-
+    # https://stackoverflow.com/questions/60620082/importing-a-dataframe-from-one-jupyter-notebook-into-another-jupyter-notebook
     # Importing Dataframe from car_reccomender and elasticent_regression
-    rec_df = car_recommender.recommended_cars # 3 cars reccomended from car_recommender
-    sel_df = car_recommender.selected_cars # 1 car selected from car_recommender
+    rec_df = pd.read_pickle("recommended_cars.pkl") # 3 cars reccomended from car_recommender
+    sel_df = pd.read_pickle("selected_cars.pkl") # 1 car selected from car_recommender
 
+    # importing Dataframe from elacticnet regression
+    # elas_df = pd.read_pickle("[FILENAME.pkl]")
 
+    # Sql query for user selection on car.html
+    # sql = cursor.execute("select * from used_cars where state = (%s) and price < (%s) and condition > (%s) and manufacturer = (%s) \
+    #                       and size = (%s) and miles < (%s)",(state, max_price, condition, manufacturer, size, miles))
+    # rows=cursor.fetchall()
+    # rows=pd.DataFrame(rows).tojson()
+    # return rows
+        #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
     ##########################
 
 
