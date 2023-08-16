@@ -1,11 +1,15 @@
 # Byte-compiled / optimized / DLL files
 .DS_Store
+vehicles.csv
 __pycache__/
 *.py[cod]
 *$py.class
 
 # C extensions
 *.so
+
+# raw data prior to cleaning
+data/vehicles.csv
 
 # Distribution / packaging
 .Python
