@@ -70,13 +70,8 @@ def results():
     # importing Dataframe from elacticnet regression
     # elas_df = pd.read_pickle("[FILENAME.pkl]")
 
-    # Sql query for user selection on car.html
-    # sql = cursor.execute("select * from used_cars where state = (%s) and price < (%s) and condition > (%s) and manufacturer = (%s) \
-    #                       and size = (%s) and miles < (%s)",(state, max_price, condition, manufacturer, size, miles))
-    # rows=cursor.fetchall()
-    # rows=pd.DataFrame(rows).tojson()
-    # return rows
-        #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
+    
+    
     ##########################
 
 
@@ -103,8 +98,14 @@ def results():
     """
 
     #########################################
-
-
+    # Sql query for user selection on car.html
+    search_q = f'''SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition > {condition} AND manufacturer = {manufacturer} \
+                          and size = {size} and miles < {odometer}'''
+    rows=cur.fetchmany(4)
+    rows=pd.DataFrame(rows).tojson()
+    return rows
+    
+    #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
 
     return render_template('results.html', results=results, reccomendations=reccomendations) #Webpage that gets results following search
 
