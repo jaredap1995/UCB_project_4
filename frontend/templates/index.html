@@ -8,6 +8,7 @@
     <title>Used Car Price Prediction</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' href="{{ url_for ('static', filename = 'css/index.css') }}">
 </head>
 
@@ -15,7 +16,11 @@
     {% extends "nav.html" %}
     {% block content %}
     <!-- Search Bars-->
-    <h1 class="title1">Find your next vehicle that fits your needs!</h1>
+    <div class="container"> 
+        <div class = 'row mb-1 justify-content-center'>
+            <h1 id = 'headText'> Find your next vehicle that fits your needs! </h1>
+        </div>
+    </div>
     <form action="/results" method="POST">
         <div class="container">
             <div id='preferenceSliders'>

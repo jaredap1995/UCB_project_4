@@ -16,6 +16,20 @@
         cursor: pointer;
 }
 
+#headText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: 'black'; /* Adjust color as needed */
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px 0;
+    /* background: linear-gradient(to right, #487fee, #b632fa); Gradient background similar to your buttons */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Subtle shadow for depth */
+}
+
+
 #title1{
     text-align: center;
     padding: 2em;
