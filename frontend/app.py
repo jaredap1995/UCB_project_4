@@ -10,14 +10,15 @@ import pandas as pd
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="Ulysses@5280+", #password="postgres"
+conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
-                            port = "5433"
+                            port = "5432"
                             # port="5432"
                             )
 cur = conn.cursor()
+
 
 
 
@@ -46,26 +47,10 @@ def about():
 
 @app.route('/results', methods=['GET','POST'])
 def results():
-    # Simulated results from the database...to be replaced by backend group work querying database
-    ##### Sample Code ######
-    results = [
-        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Tesla', 'model': 'Model S', 'id': 1, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Tesla', 'model': 'Model X', 'id': 2, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Toyota', 'model': 'Corrola', 'id': 3, 'size': 'Any', 'condition': 'Any'},
-    ]
-
-    reccomendations = [
-         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
-         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
-        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
-    ]
     # https://stackoverflow.com/questions/60620082/importing-a-dataframe-from-one-jupyter-notebook-into-another-jupyter-notebook
     # Importing Dataframe from car_reccomender and elasticent_regression
     rec_df = pd.read_pickle("recommended_cars.pkl") # 3 cars reccomended from car_recommender
-    sel_df = pd.read_pickle("selected_cars.pkl") # 1 car selected from car_recommender
+    # sel_df = pd.read_pickle("selected_cars.pkl") # 1 car selected from car_recommender
 
     # importing Dataframe from elacticnet regression
     # elas_df = pd.read_pickle("[FILENAME.pkl]")
@@ -83,30 +68,36 @@ def results():
     ########### Actual Code ################
     # Target the `name` attribute in each select element from index.html
     state = request.form.get('state')
-    maxPriceRange = request.form.get('maxPriceRange')
+    maxPriceRange = int(request.form.get('maxPriceRange'))
     condition = request.form.get('condition')
     manufacturer = request.form.get('manufacturer')
     size = request.form.get('size')
-    odometer = request.form.get('odometer')
+    odometer = int(request.form.get('odometer').split()[-1])
     transmission = request.form.get('transmission')
     cylinder = request.form.get('cylinder')
-    print(state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder)
+    conditions = [state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder]
     #  return f"Selected values: Dropdown 1: {dropdown1_value}, and {state}"
-    #Something Like
-    """
-    cursor.execute(select * from used_cars where price<20000 and price>100000 and 'year' > 2012)
-    rows=cursor.fetchall()
-    rows=pd.DataFrame(rows).tojson()
-    return rows
-    
 
-    """
+    #Something Like
+
+    cur.execute(f"select * from used_cars where price < {maxPriceRange} and odometer <= '{odometer}';")
+    columns=['id',"price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date"]
+
+    results=cur.fetchall()
+    results=pd.DataFrame(results).reset_index()
+    results.columns=columns
+    results=[results.iloc[s].to_dict() for s in range(len(results))]
+    for i in range(len(results)):
+        results[i]['image']='hello.com'
+        results[i]['odometer']=int(results[i]['odometer'])
+        results[i]['price']=int(results[i]['price'])
+
 
     #########################################
 
 
 
-    return render_template('results.html', results=results, reccomendations=reccomendations) #Webpage that gets results following search
+    return render_template('results.html', results=results) #Webpage that gets results following search
 
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
@@ -120,6 +111,14 @@ def car_details(car_id):
         {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'make': 'Toyota', 'model': 'Corrola', 'id': 3},
     ]
 
+    reccomendations = [
+         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
+         {'image': 'audi7.jpg', 'price': 100000, 'year': 2018, 'manufacturer': 'Audi', 'model': 'A7', 'id': 4, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'gwagon.jpg', 'price': 50000, 'year': 2017, 'manufacturer': 'Mercedez', 'model': 'G Wagon', 'id': 5, 'size': 'Any', 'condition': 'Any'},
+        {'image': 'vwcc.jpg', 'price': 75000, 'year': 2016, 'manufacturer': 'Volkswagen', 'model': 'CC', 'id': 6, 'size': 'Any', 'condition': 'Any'},
+    ]
     for val in results:
             if val['id']==car_id:
                 car=val
@@ -137,7 +136,7 @@ def car_details(car_id):
     """
     #################################
 
-    return render_template('car.html', car = car)
+    return render_template('car.html', car = car, reccomendations=reccomendations)
 
 if __name__ == "__main__":
     app.run(debug=True)
