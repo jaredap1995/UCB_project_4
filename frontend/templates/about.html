@@ -1,35 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>About</title>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div clsss = 'container'>
-            <h1>Meet The Team</h1>
 
-            <!-- Row Template to be copied to Each group Memeber-->
-            <div class = 'row'>
-                <div clss = 'col-md-3'>
-                    <img src = "{{ url_for('static', filename = 'about/jared_copy.png') }}" class = 'img-fluid' alt = 'Image 1'>
-                </div>
-                <div clss = "col-md-9">
-                    <h3> Name </h3>
-                    <p> <strong> Role: </strong> Frontend Development, Github repository Coordinator, blah blah blah</p>
-                    <p> <strong> Bio: </strong> Pretty cool at stuff</p>
-                    <p> <strong> Goals: </strong> Make lots of money and be awesome and sick and stuff</p>
-                    <p> <strong> Links: 
-                        <a href = 'https://github.com/jaredap1995' target = "_blank"> Github</a>
-                        <a href = 'https://www.linkedin.com/in/jared-perez/' target = "_blank"> LinkedIn</a>
-                        <a href = 'https://leetcode.com/jaredaperez1995/' target = '_blank'> Leetcode</a>
-                    </strong></p>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>About</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel='stylesheet' href="{{ url_for ('static', filename = 'css/about.css') }}">
+</head>
+
+<body>
+    {% extends "nav.html" %}
+    {% block content %}
+    <div class="container my-5">
+        <!-- Why this project section -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2>Why This Project?</h2>
+                <p class="text-muted">
+                    The used car market is a booming market at the moment but a lack of centralized governance on prices means users have to scour the web in order to find fair prices.
+                    The graph below is just one example of how used car prices have been increasing over the years.
+                </p>
+                <p>Enter in Graph here....might be a big task but lets go for it</p>
+                <a href='https://www.cargurus.com/Cars/price-trends/' alt='Car Guru graph'>Car Guru graph</a>
+            </div>
+        </div>
+
+        <!-- Features section -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2>Features of our Web Application</h2>
+                <p>Our search engine will return all the relevant listings based on your filtering criteria and listings.</p>
+            </div>
+        </div>
+
+        <!-- Feature items -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="p-3 shadow">
+                    <img src="https://uploads-ssl.webflow.com/6404ba229d7341e232b1c96c/64052d55bdf9c668dfa674c2_social-network.svg" class="mb-3" alt="Easy to use">
+                    <h3>Easy to use</h3>
+                    <p class="text-muted">Simply type in your desired preferences and let our technology scour the web for the best options. Save time without having to navigate complex search filters or menus.</p>
                 </div>
             </div>
-            <!-- End of Row Template -->
-
+            <div class="col-md-6 mb-4">
+                <div class="p-3 shadow">
+                    <img src="https://uploads-ssl.webflow.com/6404ba229d7341e232b1c96c/64052c879b36847fce2b058b_search-paper.svg" class="mb-3" alt="Accurate results">
+                    <h3>Accurate results</h3>
+                    <p class="text-muted">Our powerful algorithms search thousands of car listings to give you the most relevant recommendations while maintaining the flexibility to filter and narrow your search based on your criterion so you can be sure you're finding your perfect car.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-3 shadow">
+                    <img src="https://uploads-ssl.webflow.com/6404ba229d7341e232b1c96c/64052dfc4b57264a0e9adf5e_credit-card.svg" class="mb-3" alt="Fair Prices">
+                    <h3>Fair Prices</h3>
+                    <p class="text-muted">Whether you are looking to buy a used car for yourself, the next car for your family or a first car for your child, you can feel confident you will only ever pay a fair price.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-3 shadow">
+                    <img src="https://uploads-ssl.webflow.com/6404ba229d7341e232b1c96c/64052ba340112146c498b0b2_promotion.svg" class="mb-3" alt="Get notified">
+                    <h3>Get notified</h3>
+                    <p class="text-muted">Never miss out on the right time to buy the perfect car. Our data is continuously being updated with more information from across the web, sign up for notifications and be the first to know when your car is available.</p>
+                    <a id = 'signUp' href = '/signup' onclick="signUp()"> Sign Up for notifications</a>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
+    {% endblock %}
+     <!-- Javascript file imports-->
+     <!-- Above this line is where unique code layout ends. Below are imports -->
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+     <script src = "{{ url_for('static', filename = 'main.js')}}"></script>
+</body>
 </html>
