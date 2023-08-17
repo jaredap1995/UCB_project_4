@@ -127,15 +127,6 @@ def results():
         results[i]['odometer']=int(results[i]['odometer'])
         results[i]['price']=int(results[i]['price'])
 
-
-    #########################################
-    # Sql query for user selection on car.html
-    # search_q = f"SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition >= {condition} AND manufacturer = {manufacturer} \
-    #                         and size = {size} and miles <= {odometer}"
-   
-    
-    #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
-
     return render_template('results.html', results=results) #Webpage that gets results following search
 
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
