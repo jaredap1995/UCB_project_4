@@ -16,7 +16,7 @@ conn = psycopg2.connect(database="project_4",
                             password="secret", #password="postgres"
                             host="localhost",
                             port = "5432"
-                            # port="5432"
+                            # port="5433"
                             )
 cur = conn.cursor()
 
@@ -77,11 +77,20 @@ def results():
     #     if param and param != "Any":
     #         base_query += " AND %s "
 
-    cur.execute(f"select * from used_cars where price < {maxPriceRange} and odometer <= '{odometer}';")
+    search_query = """SELECT * FROM used_cars WHERE
+                 price < %s AND
+                 manufacturer = %s AND
+                 condition >= %s AND 
+                 odometer <= %s AND 
+                 size = %s AND
+                 state = %s"""
+
+    cur.execute(search_query, (maxPriceRange, manufacturer.lower(), condition.lower(), odometer, size.lower(), state.lower()))
     columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
     results=cur.fetchall()
-    results=pd.DataFrame(results)
+    print(results)
+    results=pd.DataFrame(results, columns=columns)
     results.columns=columns
     results=[results.iloc[s].to_dict() for s in range(len(results))]
     for i in range(len(results)):
@@ -92,11 +101,9 @@ def results():
 
     #########################################
     # Sql query for user selection on car.html
-    # search_q = f'''SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition > {condition} AND manufacturer = {manufacturer} \
-    #                         and size = {size} and miles < {odometer}'''
-    #     rows=cur.fetchmany(4)
-        # rows=pd.DataFrame(rows).tojson()
-    #     return rows
+    # search_q = f"SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition >= {condition} AND manufacturer = {manufacturer} \
+    #                         and size = {size} and miles <= {odometer}"
+   
     
     #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
 
