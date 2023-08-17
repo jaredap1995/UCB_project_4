@@ -11,11 +11,11 @@ from helper import get_image_url
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="project_4",
-                            user="jaredp",
-                            password="secret", #password="postgres"
+conn = psycopg2.connect(database="proj_4",
+                            user="postgres",
+                            password="Ulysses@5280+", #password="postgres"
                             host="localhost",
-                            port = "5432"
+                            port = "5433"
                             # port="5433"
                             )
 cur = conn.cursor()
@@ -115,10 +115,10 @@ def results():
     print(base_query)
     print(cur.execute(base_query, params))
     cur.execute(base_query, params)
-    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+    columns = ["price", "year", "manufacturer", "condition", "cylinders", "odometer", "title_status", "transmission", "size", "state", "posting_date"]
 
     results=cur.fetchall()
-    print(results)
+    # print(results)
     results=pd.DataFrame(results, columns=columns)
     results.columns=columns
     results=[results.iloc[s].to_dict() for s in range(len(results))]
@@ -146,8 +146,9 @@ def car_details(car_id):
     car=cur.fetchone()
     if not car:
         return ValueError()
-    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
-    car=pd.Series(car, index = columns).to_dict()
+    columns_2=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+    car_data = list(car)  # Fetch the 'id' column as well
+    car = pd.Series(car_data, index=columns_2).to_dict()
     query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
     car['image'] = get_image_url(query)
     print(car['image'])
