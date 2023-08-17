@@ -11,12 +11,12 @@ from helper import get_image_url
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="Ulysses@5280+", #password="postgres"
+conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
-                            # port = "5432"
-                            port="5433"
+                            port = "5432"
+                            # port="5433"
                             )
 cur = conn.cursor()
 
@@ -85,11 +85,11 @@ def results():
                  size = %s AND
                  state = %s"""
 
-    cur.execute(search_query, (maxPriceRange, manufacturer, condition, odometer, size, state))
+    cur.execute(search_query, (maxPriceRange, manufacturer.lower(), condition.lower(), odometer, size.lower(), state.lower()))
     columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
     results=cur.fetchall()
-    # print(results)
+    print(results)
     results=pd.DataFrame(results, columns=columns)
     results.columns=columns
     results=[results.iloc[s].to_dict() for s in range(len(results))]
