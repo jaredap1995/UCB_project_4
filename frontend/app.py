@@ -70,23 +70,51 @@ def results():
     cylinder = request.form.get('cylinder')
     conditions = [state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder]
 
+    # #Base query
+    filters = {
+        'state': state.lower(),
+        'price': maxPriceRange,
+        'condition': condition.lower(),
+        'manufacturer': manufacturer.lower(),
+        'size': size.lower(),
+        'odometer': odometer,
+        'transmission': transmission.lower(),
+        'cylinders': cylinder.lower(),
+    }
+
+    numerical_conditions = {
+        'price': '<=',
+        'odometer': '<='
+    }
 
 
-    # base_query = 'select * from used_cars where 1=1;'
-    # params=[]
-    # for param in conditions:
-    #     if param and param != "Any":
-    #         base_query += " AND %s "
 
-    search_query = """SELECT * FROM used_cars WHERE
-                 price < %s AND
-                 manufacturer = %s AND
-                 condition >= %s AND 
-                 odometer <= %s AND 
-                 size = %s AND
-                 state = %s"""
+    #Base query....create a query that is always true
+    base_query = 'select * from used_cars where 1=1'
 
-    cur.execute(search_query, (maxPriceRange, manufacturer.lower(), condition.lower(), odometer, size.lower(), state.lower()))
+
+    params=[]
+    for column, value in filters.items():
+        if value != "any":
+            if column in numerical_conditions:
+                base_query +=f" AND {column} {numerical_conditions[column]} {value}"
+            else:
+                base_query += f" AND {column} = '{value}'"
+            params.append(value)
+        else:
+            base_query+=''
+
+    # search_query = """SELECT * FROM used_cars WHERE
+    #              price < %s AND
+    #              manufacturer = %s AND
+    #              condition >= %s AND 
+    #              odometer <= %s AND 
+    #              size = %s AND
+    #              state = %s"""
+
+    print(base_query)
+    print(cur.execute(base_query, params))
+    cur.execute(base_query, params)
     columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
     results=cur.fetchall()
