@@ -70,7 +70,8 @@ def results():
     cylinder = request.form.get('cylinder')
     conditions = [state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder]
 
-    # #Base query
+
+
     # base_query = 'select * from used_cars where 1=1;'
     # params=[]
     # for param in conditions:
