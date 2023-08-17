@@ -57,7 +57,8 @@ let size = ['any', 'full-size', 'mid-size', 'compact', 'sub-compact']
 let newSize = size.map(function(x) { return x.charAt(0).toUpperCase() + x.slice(1,)})
 document.getElementById('size').innerHTML = generateStringOptions(newSize)
 
-let transmissionArray = ['any', 'other', 'automatic', 'manual']
+// Potentially remove 'any'
+let transmissionArray = ['any', 'automatic', 'manual']
 let newTransmissionArray = transmissionArray.map(function(x) {return x.charAt(0).toUpperCase() + x.slice(1,)})
 document.getElementById('transmission').innerHTML = generateStringOptions(newTransmissionArray)
 
@@ -84,15 +85,43 @@ function searchCars () {
     var size = document.getElementById('size').value;
     var odometer = document.getElementById('odometer').value;
     var state = document.getElementById('state').value;
+    var transmission = document.getElementById('transmission').value;
+    var cylinders = document.getElementById('cylinder').value;
 
 
     //Redirect to results after search is made
-    window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer;
+    window.location.href = "/results?query=" + query + "&maxPrice=" + priceMax + "&condition=" + condition + "&state" + state + "&manufacturer=" + manufacturer + "&size=" + size + "&ododmeter=" + odometer + "&transmission=" + transmission + "&cylinders=" + cylinders;
 }
 
-// Navigate to the about page Button
+// Navigate to pages Buttons
+function team(){
+    window.location.href = "/team"
+}
+
 function about(){
     window.location.href = "/about"
+}
+
+//Sign Up Notification
+document.getElementById('notificationForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const email = document.getElementById('formEmail').value
+    //Build Backend API to send email
+
+
+    //Send Alert for email
+    $('#notificationModal').modal('hide');
+    alert(`Thank you for signing up! Updates will be sent to ${email}`)
+})
+
+function scrollToNavBar(event){
+    event.preventDefault();
+    $('html, body').animate({
+        scrollTop: $("#header").offset().top()
+    }, 1000)
+    // const navbar = document.getElementById('header')
+    // navbar.scrollIntoView({behavior: "smooth" })
 }
 
 

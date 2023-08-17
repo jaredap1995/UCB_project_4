@@ -1,0 +1,189 @@
+#aboutButton {
+        position: left;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 30px;
+        background: linear-gradient(to right, #487fee, #b632fa);
+        border: none;
+        outline: none;
+        border-radius: 35px;
+        z-index: 2;
+        font-size: 14px;
+        font-weight: 700;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        cursor: pointer;
+}
+
+#headText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: 'black'; /* Adjust color as needed */
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Subtle shadow for depth */
+}
+
+
+#title1{
+    text-align: center;
+    padding: 2em;
+    /* color: rgb(red, green, blue) */
+}
+
+#signUpButton {
+        position: left;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 50px;
+        background: linear-gradient(to right, #487fee, #b632fa);
+        border: none;
+        outline: none;
+        border-radius: 35px;
+        z-index: 2;
+        font-size: 14px;
+        font-weight: 700;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        cursor: pointer;
+}
+
+#signUpButton:hover {
+    background: linear-gradient(to right,  #b632fa, #487fee); 
+}
+
+
+#aboutButton:hover {
+    background: linear-gradient(to right,  #b632fa, #487fee); 
+}
+
+#faq {
+    position: left;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 50px;
+    background: linear-gradient(to right, #487fee, #b632fa);
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.logo-wrapper {
+    width: 70px;
+    height: 70px;
+}
+
+.logo {
+    margin-left: 50px;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate{
+    from { 
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg)
+    }
+}
+
+#faq:hover {
+    background: linear-gradient(to right,  #b632fa, #487fee); 
+}
+
+#preferenceSliders {
+        margin-top: 20px;
+        padding: 24px 24px 24px;
+        border-radius: 8px 8px 6px 6px;
+        box-shadow: 0 4px 8px #000000;
+}
+
+#advancedOptionsContainer {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#searchButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 50px;
+    background: linear-gradient(to right, #487fee, #b632fa);
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+#searchButton:hover{
+    background: linear-gradient(to right,  #b632fa, #487fee); 
+}
+
+#advancedOptionsButton {
+    width: 180px; /* Adjust the width as needed */
+    height: 50px;
+    background: linear-gradient(to right, #ff6a00, #ee0979);
+    border: none;
+    outline: none;
+    border-radius: 35px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+  }
+  
+#advancedOptionsButton:hover {
+    background: linear-gradient(to right, #ee0979, #ff6a00); 
+}
+
+
+#header {
+    display: flex; /* Turn this into a flex container */
+    justify-content: space-between; /* Distribute the space between children */
+    align-items: center; /* Vertically align the children in the center */
+    background: #1a1a1a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border: none;
+    height: 100px;
+}
+
+.navbar-brand {
+    color: #FFFFFF; /* White text color for the brand name */
+    font-size: 24px; /* Font size */
+    font-weight: 700; /* Bold font weight */
+    letter-spacing: 10px; /* Letter spacing */
+    text-transform: uppercase; /* Uppercase letters */
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 30 30\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(255, 255, 255, 0.5)\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 7h22M4 15h22M4 23h22\'/%3E%3C/svg%3E');
+}
+
+/* #aboutButton, #faq {
+    margin: 5px; /* Margin around buttons */
+
+
+  
+  

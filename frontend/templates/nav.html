@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Used Car Price Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel = 'stylesheet' href = "{{ url_for ('static', filename = 'css/index.css') }}">
+</head>
+<body>
+    <!-- Below this line is where unique code gets implemented -->
+    <!-- Persist this Nav Bar to all other Pages-->
+    <nav id='header' class="navbar navbar-expand-lg navbar-white bg-white">
+        <div class="container-fluid d-flex justify-content-between"> <!-- Flex container for left, center, right alignment -->
+    
+            <!-- Left Button -->
+            <div>
+                <div id="faq" class="btn btn-primary" onclick="about()"> Learn About The Project </div>
+            </div>
+    
+            <!-- Logo in the center -->
+            <div>
+                <a class="logo-link" href="/">
+                    <div class='logo-wrapper'>
+                        <img src="{{ url_for('static', filename = 'index/wheel.png')}}" alt="Used Car Price Prediction" class='logo'>
+                    </div>
+                </a>
+            </div>
+    
+            <!-- Right Buttons and Hamburger toggle -->
+            <div class="d-flex align-items-center"> <!-- Flex container for vertical alignment of items -->
+                <div id="aboutButton" class="btn btn-primary" onclick="team()">Meet The Team</div>
+                <button id='signUpButton' type='button' class='btn btn-primary' data-toggle="modal" data-target="#notificationModal">Sign Up for Updates</button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    
+        <!-- Collapsible content (for mobile screens) -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Add your mobile-specific navbar items here if needed -->
+        </div>
+    </nav>
+    
+
+      <!-- Sign Up Fade-->
+      <div class = 'modal fade' id = 'notificationModal' tabindex ="-1" role = 'dialog' aria-labelledby = 'notificationModalLabel' aria-hidden="true">
+        <div class = 'modal-dialog' role = 'document'>
+            <div class = 'modal-content'>
+                <div class = 'modal-header'>
+                    <h5 class = 'modal-title'> Sign Up for Notifications</h5>
+                    <button type = 'button' class = 'close' data-dismiss="modal" aria-label = 'Close'>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class = 'modal-body'>
+                    <form id = 'notificationForm'>
+
+                        <div class="form-group">
+                        <input type="name" id="formName" class="form-control form-control-lg" />
+                        <label class="form-label" for="formName">Your Name</label>
+                        </div>
+        
+                        <div class="form-outline mb-4">
+                        <input type="email" id="formEmail" class="form-control form-control-lg" aria-describedby="emailHelp"/>
+                        <label class="form-label" for="formEmail">Your Email</label>
+                        </div>
+        
+                        <div class="d-flex justify-content-center">
+                        <button type="submit"
+                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                        </div>
+        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      {% block content %}
+      {% endblock %}
+       <!-- Javascript file imports-->
+     <!-- Above this line is where unique code layout ends. Below are imports -->
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+     <script src = "{{ url_for('static', filename = 'main.js')}}"></script>
+</body>
+</html>

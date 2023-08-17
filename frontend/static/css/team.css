@@ -1,0 +1,58 @@
+p {
+    margin-bottom: 5px;
+}
+
+#headText {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: 'black'; /* Adjust color as needed */
+    text-align: center;
+    border-radius: 8px;
+    padding-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Subtle shadow for depth */
+}
+
+
+
+.team-card {
+    position: relative;
+    transition: tranform 0.3s;
+    border: 3px groove #a9a9a9;
+    border-style: outset;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-image: linear-gradient(rgba(243,243,243,.86),rgba(243,243,243,.86)),url(https://assets.website-files.com/5e8f270cb1c84d21892d1fe3/5e95b69bf41cd2e6ff5a0d86_Mtf_34_OR-GT-60%404x.png);
+    background-position: 0 0,50% 100%;
+}
+
+.team-card::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 15px;
+    background: linear-gradient(to right, #487fee, #b632fa);
+}
+
+.team-card:hover {
+    transform: scale(1.05);
+}
+
+.card-body {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-imgi-top {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}

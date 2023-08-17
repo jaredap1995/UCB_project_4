@@ -1,20 +1,25 @@
 import psycopg2
 import json
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from datetime import datetime
 import sys
 import os
+import pandas as pd
+from helper import get_image_url
 
 #################################################
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="postgres",
+conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
-                            port="5432")
+                            port = "5432"
+                            # port="5433"
+                            )
 cur = conn.cursor()
+
 
 
 
@@ -32,70 +37,124 @@ app = Flask(__name__)
 def index():
     return render_template('index.html') #Home page that has search engine/preferences and rotating images
 
+@app.route('/team')
+def team():
+    return render_template('team.html') 
+
 @app.route('/about')
 def about():
-    return render_template('about.html') #Make a page to describe the project
+    return render_template('about.html')
 
-@app.route('/results')
+
+@app.route('/results', methods=['GET','POST'])
 def results():
-    # Simulated results from the database...to be replaced by backend group work querying database
-    ##### Sample Code ######
-    results = [
-        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'make': 'Tesla', 'model': 'Model S', 'id': 1},
-        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'make': 'Tesla', 'model': 'Model X', 'id': 2},
-        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'make': 'Toyota', 'model': 'Corrola', 'id': 3},
-    ]
-    ##########################
+    # https://stackoverflow.com/questions/60620082/importing-a-dataframe-from-one-jupyter-notebook-into-another-jupyter-notebook
+    # Importing Dataframe from car_reccomender and elasticent_regression
+    rec_df = pd.read_pickle("recommended_cars.pkl") # 3 cars reccomended from car_recommender
+    # sel_df = pd.read_pickle("selected_cars.pkl") # 1 car selected from car_recommender
+
+    # importing Dataframe from elacticnet regression
+    # elas_df = pd.read_pickle("[FILENAME.pkl]")
+
 
 
     ########### Actual Code ################
+    # Target the `name` attribute in each select element from index.html
+    state = request.form.get('state')
+    maxPriceRange = int(request.form.get('maxPriceRange'))
+    condition = request.form.get('condition')
+    manufacturer = request.form.get('manufacturer')
+    size = request.form.get('size')
+    odometer = int(request.form.get('odometer').split()[-1])
+    transmission = request.form.get('transmission')
+    cylinder = request.form.get('cylinder')
+    conditions = [state, maxPriceRange, condition, manufacturer, size, odometer, transmission, cylinder]
 
-    #Something Like
-    """
-    cursor.execute(select * from used_cars where price<20000 and price>100000 and 'year' > 2012)
-    rows=cursor.fetchall()
-    rows=pd.DataFrame(rows).tojson()
-    return rows
-    
+    # #Base query
+    filters = {
+        'state': state.lower(),
+        'price': maxPriceRange,
+        'condition': condition.lower(),
+        'manufacturer': manufacturer.lower(),
+        'size': size.lower(),
+        'odometer': odometer,
+        'transmission': transmission.lower(),
+        'cylinders': cylinder.lower(),
+    }
 
-    """
+    numerical_conditions = {
+        'price': '<=',
+        'odometer': '<='
+    }
+
+
+
+    #Base query....create a query that is always true
+    base_query = 'select * from used_cars where 1=1'
+
+
+    params=[]
+    for column, value in filters.items():
+        if value != "any":
+            if column in numerical_conditions:
+                base_query +=f" AND {column} {numerical_conditions[column]} {value}"
+            else:
+                base_query += f" AND {column} = '{value}'"
+            params.append(value)
+        else:
+            base_query+=''
+
+    # search_query = """SELECT * FROM used_cars WHERE
+    #              price < %s AND
+    #              manufacturer = %s AND
+    #              condition >= %s AND 
+    #              odometer <= %s AND 
+    #              size = %s AND
+    #              state = %s"""
+
+    print(base_query)
+    print(cur.execute(base_query, params))
+    cur.execute(base_query, params)
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+
+    results=cur.fetchall()
+    print(results)
+    results=pd.DataFrame(results, columns=columns)
+    results.columns=columns
+    results=[results.iloc[s].to_dict() for s in range(len(results))]
+    for i in range(len(results)):
+        results[i]['image']='hello.com'
+        results[i]['odometer']=int(results[i]['odometer'])
+        results[i]['price']=int(results[i]['price'])
+
 
     #########################################
-
-
+    # Sql query for user selection on car.html
+    # search_q = f"SELECT * FROM used_cars WHERE state = {state} AND price < {maxPriceRange} AND condition >= {condition} AND manufacturer = {manufacturer} \
+    #                         and size = {size} and miles <= {odometer}"
+   
+    
+    #https://stackoverflow.com/questions/902408/how-to-use-variables-in-sql-statement-in-python
 
     return render_template('results.html', results=results) #Webpage that gets results following search
 
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
-    # car = get_car_details(car_id) #Python functions that queries database for specific car and returns the details. Car_id=unique id of car in database
-    # prediction = get_price_prediction(car_id)
-    
-    ########### Sample Code #########
-    results = [
-        {'image': 'model_s.jpg', 'price': 100000, 'year': 2018, 'make': 'Tesla', 'model': 'Model S', 'id': 1},
-        {'image': 'model_x.jpg', 'price': 50000, 'year': 2017, 'make': 'Tesla', 'model': 'Model X', 'id': 2},
-        {'image': 'toyota.jpg', 'price': 75000, 'year': 2016, 'make': 'Toyota', 'model': 'Corrola', 'id': 3},
-    ]
-
-    for val in results:
-            if val['id']==car_id:
-                car=val
-    #################################
-
-
-    ###### ----- Actual code ------ #############
     
     #Something Like
-    """
-    cursor.execute(Select * from used_cars where id = car_id returning blah blah)
-    rows=cursor.fetchall()
-    rows=pd.DataFrame(rows).todict()/json
-    car=rows
-    """
-    #################################
+    cur.execute(f"Select * from used_cars where id = {car_id}")
+    car=cur.fetchone()
+    if not car:
+        return ValueError()
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+    car=pd.Series(car, index = columns).to_dict()
+    query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
+    car['image'] = get_image_url(query)
+    print(car['image'])
 
-    return render_template('car.html', car = car)
+    reccomendations=0 ##Code Here that will fire up the model and get a reccomendation for the car based on parameters
+
+    return render_template('car.html', car = car, reccomendations=reccomendations)
 
 if __name__ == "__main__":
     app.run(debug=True)
