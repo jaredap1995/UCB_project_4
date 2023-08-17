@@ -12,27 +12,39 @@
 <body>
     <!-- Below this line is where unique code gets implemented -->
     <!-- Persist this Nav Bar to all other Pages-->
-    <nav id = 'header' class="navbar navbar-expand-lg navbar-white bg-white">
-        <div id="faq" class="btn btn-primary" onclick="about()"> Learn About The Project </div>
-        <div class = 'logo-container d-flex justify-content-right'>
-            <a class="logo-link" href="/">
-                <div class = 'logo-wrapper'>
-                    <img src = "{{ url_for('static', filename = 'index/wheel.png')}}" alt = "Used Car Price Prediction" class = 'logo'>
-                </div>
-            </a>
+    <nav id='header' class="navbar navbar-expand-lg navbar-white bg-white">
+        <div class="container-fluid d-flex justify-content-between"> <!-- Flex container for left, center, right alignment -->
+    
+            <!-- Left Button -->
+            <div>
+                <div id="faq" class="btn btn-primary" onclick="about()"> Learn About The Project </div>
+            </div>
+    
+            <!-- Logo in the center -->
+            <div>
+                <a class="logo-link" href="/">
+                    <div class='logo-wrapper'>
+                        <img src="{{ url_for('static', filename = 'index/wheel.png')}}" alt="Used Car Price Prediction" class='logo'>
+                    </div>
+                </a>
+            </div>
+    
+            <!-- Right Buttons and Hamburger toggle -->
+            <div class="d-flex align-items-center"> <!-- Flex container for vertical alignment of items -->
+                <div id="aboutButton" class="btn btn-primary" onclick="team()">Meet The Team</div>
+                <button id='signUpButton' type='button' class='btn btn-primary' data-toggle="modal" data-target="#notificationModal">Sign Up for Updates</button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    
+        <!-- Collapsible content (for mobile screens) -->
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <div id="aboutButton" class="btn btn-primary" onclick="team()">Meet The Team </div>
-              <button id = 'signUpButton' type = 'button' class = 'btn btn-primary' data-toggle="modal" data-target="#notificationModal"> Sign Up for Updates</button>
-            </li>
-          </ul>
+            <!-- Add your mobile-specific navbar items here if needed -->
         </div>
-      </nav>
+    </nav>
+    
 
       <!-- Sign Up Fade-->
       <div class = 'modal fade' id = 'notificationModal' tabindex ="-1" role = 'dialog' aria-labelledby = 'notificationModalLabel' aria-hidden="true">
