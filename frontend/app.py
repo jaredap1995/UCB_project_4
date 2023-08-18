@@ -16,11 +16,11 @@ from helper import get_df
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="Ulysses@5280+", #password="postgres"
+conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
-                            port = "5433"
+                            port = "5432"
                             # port="5433"
                             )
 cur = conn.cursor()
@@ -58,13 +58,6 @@ def about():
 def results():
     # https://stackoverflow.com/questions/60620082/importing-a-dataframe-from-one-jupyter-notebook-into-another-jupyter-notebook
     # Importing Dataframe from car_reccomender and elasticent_regression
-    rec_df = pd.read_pickle("recommended_cars.pkl") # 3 cars reccomended from car_recommender
-    # sel_df = pd.read_pickle("selected_cars.pkl") # 1 car selected from car_recommender
-
-    # importing Dataframe from elacticnet regression
-    # elas_df = pd.read_pickle("[FILENAME.pkl]")
-
-
 
     ########### Actual Code ################
     # Target the `name` attribute in each select element from index.html
@@ -113,7 +106,7 @@ def results():
             base_query+=''
 
     cur.execute(base_query, params)
-    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date"]
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
     results=cur.fetchall()
     print(results)
@@ -139,19 +132,22 @@ def results():
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
     
-    recc_dict = recommendation_model(car_id)
-    print(recc_dict)
-    #Something Like
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+    cur.execute(f"Select * from used_cars")
+    data=cur.fetchall()
+    data=pd.DataFrame(data, columns=columns)
+    reccomendations = recommendation_model(car_id)
+    print(reccomendations) #This successfully pulls the reccomendations
+
+
+    #Query for main result
     cur.execute(f"Select * from used_cars where id = {car_id}")
     car=cur.fetchone()
     if not car:
         return ValueError()
-    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
     car=pd.Series(car, index = columns).to_dict()
     query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
     car['image'] = get_image_url(query)
-
-    reccomendations=0 ##Code Here that will fire up the model and get a reccomendation for the car based on parameters
 
     return render_template('car.html', car = car, reccomendations=reccomendations)
 

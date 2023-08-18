@@ -7,27 +7,27 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 
 def load_data():
-    conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="Ulysses@5280+", #password="postgres"
+    conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
-                            port = "5433")
+                            port = "5432")
     cur = conn.cursor()
 
     sql_query = '''Select * From used_cars'''
     cur.execute(sql_query)
 
     results=cur.fetchall()
-    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date"]
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
     results=pd.DataFrame(results, columns=columns)
     
     return results
 
 #main df
-cars_df = load_data()
+# cars_df = load_data()
 
-def model_cleaning():
-    cars_df = load_data()
+def model_cleaning(cars_df):
+    # cars_df = load_data()
     print("line 30", cars_df)
 
     # dropping duplicates
@@ -93,11 +93,10 @@ def model_cleaning():
     return regr_cars_df
 
 #cleaned datafram
-regr_cars_df = model_cleaning()
+# regr_cars_df = model_cleaning()
 
-def model_training():
+def model_training(regr_cars_df):
 
-    regr_cars_df = model_cleaning()
     model_knn = NearestNeighbors(metric='cosine', algorithm='auto', n_neighbors=20, n_jobs=1) # n_jobs can be adjusted based on number of cores
 
     # Fit the model
@@ -119,16 +118,19 @@ def model_load():
     return pickle.load(open('model_saves/car_recommend', 'rb'))
     
 def recommendation_model(car_id):
-    knn_model =  model_load()
+    cars_df = load_data()
+    regr_cars_df = model_cleaning(cars_df)
+    model_knn= model_training(regr_cars_df)
+
 
     selected_car = regr_cars_df.iloc[car_id].values.reshape(1, -1)
 
-    distances, indices = knn_model.kneighbors(selected_car, n_neighbors=4)
+    distances, indices = model_knn.kneighbors(selected_car, n_neighbors=4)
 
     recommended_cars = cars_df.iloc[indices[0]]
 
     demo_dict = pd.DataFrame(recommended_cars[['price','manufacturer', 'fuel', 'title_status', 'type', 'paint_color', 'state', 'transmission', 'drive']][1:4])
-    demo_dict = demo_dict.reset_index()
+    # demo_dict = demo_dict.reset_index()
     demo_dict = demo_dict.to_dict(orient='records')
 
     return demo_dict
