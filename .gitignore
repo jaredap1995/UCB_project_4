@@ -11,6 +11,9 @@ __pycache__/
 # raw data prior to cleaning
 data/vehicles.csv
 
+#PKL File too large
+frontend/model_saves/regression_model.pkl
+
 # Distribution / packaging
 .Python
 build/
