@@ -1,13 +1,14 @@
 import psycopg2
 import json
 from flask import Flask, jsonify, render_template, request
-from datetime import datetime
+from datetime import datetime, timedelta
 import sys
 import os
 import pandas as pd
 from helper import get_image_url
 import smtplib
 from email.message import EmailMessage
+
 
 #################################################
 # Database Setup
@@ -142,11 +143,47 @@ def car_details(car_id):
     car=pd.Series(car, index = columns).to_dict()
     query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
     car['image'] = get_image_url(query)
-    print(car['image'])
 
     reccomendations=0 ##Code Here that will fire up the model and get a reccomendation for the car based on parameters
 
     return render_template('car.html', car = car, reccomendations=reccomendations)
+
+@app.route('/load_chart')
+def load_chart():
+    # Retrieve data from PostgreSQL
+    selected_manufacturers = ['toyota', 'nissan', 'tesla', 'bmw', 'audi', 'mazda', 'volvo', 'mercedes-benz','acura', 'ford']
+    manufacturer_string = ', '.join([f"'{manufacturer}'" for manufacturer in selected_manufacturers])
+    # Calculate the date 12 years ago from today
+    ten_years_ago = datetime.now() - timedelta(days=365 * 12)
+    ten_years_ago_year = ten_years_ago.year
+    # Calculate the start and end years for the desired range (2012-2023)
+    start_year = 2012
+    end_year = min(datetime.now().year, 2023)  # Use the current year if it's before 2023
+    query = f"""
+        SELECT manufacturer, year, AVG(price) AS avg_price,
+               COALESCE((AVG(price) - LAG(AVG(price), 1) OVER (PARTITION BY manufacturer ORDER BY year)), 0) AS price_change,
+               COALESCE((AVG(price) - LAG(AVG(price), 1) OVER (PARTITION BY manufacturer ORDER BY year)) / LAG(AVG(price), 1) OVER (PARTITION BY manufacturer ORDER BY year) * 100, 0) AS percent_change
+        FROM used_cars
+        WHERE manufacturer IN ({manufacturer_string}) AND year BETWEEN {start_year} AND {end_year}
+        GROUP BY manufacturer, year
+        ORDER BY manufacturer, year;
+    """
+    cur.execute(query)
+    data = cur.fetchall()
+    chart_data = {}
+    for manufacturer in selected_manufacturers:
+        chart_data[manufacturer] = {'year': [], 'avg_price': [], 'price_change': [], 'percent_change': []}
+    for i in range(len(data)):
+        manufacturer = data[i][0]
+        year = int(data[i][1])
+        avg_price = float(data[i][2])
+        price_change = float(data[i][3])
+        percent_change = float(data[i][4])
+        chart_data[manufacturer]['year'].append(year)
+        chart_data[manufacturer]['avg_price'].append(avg_price)
+        chart_data[manufacturer]['price_change'].append(price_change)
+        chart_data[manufacturer]['percent_change'].append(percent_change)
+    return render_template('linePlot.html', chart_data=chart_data)
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
