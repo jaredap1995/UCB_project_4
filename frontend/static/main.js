@@ -107,13 +107,29 @@ document.getElementById('notificationForm').addEventListener('submit', function(
     e.preventDefault();
 
     const email = document.getElementById('formEmail').value
-    //Build Backend API to send email
-
-
-    //Send Alert for email
-    $('#notificationModal').modal('hide');
-    alert(`Thank you for signing up! Updates will be sent to ${email}`)
-})
+    
+    //Makeshift backend API to send email
+    fetch('/send-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response=>response.json())
+    .then(data => {
+        if (data.message === 'Email sent successfully'){
+            $('#notificationModel').modal('hide');
+            alert(`Tahnk you for signing up! Updates will be sent to ${email}`)
+        } else {
+            alert('An error occurred. Please try again later.')
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.')
+    })
+});
 
 function scrollToNavBar(event){
     event.preventDefault();

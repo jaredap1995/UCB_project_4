@@ -6,6 +6,8 @@ import sys
 import os
 import pandas as pd
 from helper import get_image_url
+import smtplib
+from email.message import EmailMessage
 
 #################################################
 # Database Setup
@@ -104,16 +106,6 @@ def results():
         else:
             base_query+=''
 
-    # search_query = """SELECT * FROM used_cars WHERE
-    #              price < %s AND
-    #              manufacturer = %s AND
-    #              condition >= %s AND 
-    #              odometer <= %s AND 
-    #              size = %s AND
-    #              state = %s"""
-
-    print(base_query)
-    print(cur.execute(base_query, params))
     cur.execute(base_query, params)
     columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
@@ -155,6 +147,32 @@ def car_details(car_id):
     reccomendations=0 ##Code Here that will fire up the model and get a reccomendation for the car based on parameters
 
     return render_template('car.html', car = car, reccomendations=reccomendations)
+
+@app.route('/send-email', methods=['POST'])
+def send_email():
+    data = request.get_json()
+    recipient_email = data['email']
+
+    SMTP_USER = ''
+    SMTP_PASSWORD = ''
+    SMTP_PORT=587
+    SMTP_SERVER= 'smtp-relay.brevo.com'
+
+    msg = EmailMessage()
+    msg.set_content('You have successfully signed up for updates.')
+    msg['Subject'] = 'Thank you for signing up!'
+    msg['From'] = SMTP_USER
+    msg['To'] = recipient_email
+
+    try:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASSWORD)
+            server.send_message(msg)
+        return jsonify(message='Email sent successfully'), 200
+    except Exception as e:
+        print(e)
+        return jsonify(message='Failed to send email.'), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
