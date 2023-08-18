@@ -8,17 +8,19 @@ import pandas as pd
 from helper import get_image_url
 import smtplib
 from email.message import EmailMessage
+from recommender import recommendation_model
+from helper import get_df
 
 
 #################################################
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="project_4",
-                            user="jaredp",
-                            password="secret", #password="postgres"
+conn = psycopg2.connect(database="proj_4",
+                            user="postgres",
+                            password="Ulysses@5280+", #password="postgres"
                             host="localhost",
-                            port = "5432"
+                            port = "5433"
                             # port="5433"
                             )
 cur = conn.cursor()
@@ -108,7 +110,7 @@ def results():
             base_query+=''
 
     cur.execute(base_query, params)
-    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
+    columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date"]
 
     results=cur.fetchall()
     print(results)
@@ -134,6 +136,8 @@ def results():
 @app.route('/car/<int:car_id>') #'/<int:car_id>'
 def car_details(car_id):
     
+    recc_dict = recommendation_model(car_id)
+    print(recc_dict)
     #Something Like
     cur.execute(f"Select * from used_cars where id = {car_id}")
     car=cur.fetchone()
