@@ -2,7 +2,6 @@
 DROP TABLE IF EXISTS used_cars;
 
 CREATE TABLE used_cars (
-	id serial PRIMARY KEY,
 	price double PRECISION NOT NULL,
 	YEAR int NOT NULL,
 	manufacturer varchar(30) NOT NULL,
@@ -17,7 +16,8 @@ CREATE TABLE used_cars (
 	TYPE varchar(20) NOT NULL,
 	paint_color varchar(30) NOT NULL,
 	state varchar(2) NOT NULL,
-	posting_date date NOT NULL
+	posting_date date NOT NULL,
+	id serial PRIMARY KEY
 );
 -- permissions issue
 COPY used_cars

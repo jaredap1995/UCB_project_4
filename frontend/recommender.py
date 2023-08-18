@@ -7,9 +7,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 
 def load_data():
-    conn = psycopg2.connect(database="project_4",
-                            user="jaredp",
-                            password="secret", #password="postgres"
+    conn = psycopg2.connect(database="proj_4",
+                            user="postgres",
+                            password="postgres", #password="postgres"
                             host="localhost",
                             port = "5432")
     cur = conn.cursor()
@@ -80,6 +80,8 @@ def model_cleaning(cars_df):
 
     regr_cars_df = cars_df.drop(columns=['manufacturer', 'fuel', 'title_status', 'type', 'paint_color', 'state', 'posting_date', 'transmission', 'drive']).copy()
     
+    new_df = regr_cars_df
+
     #2nd cell ~ Cleaning
     # Scaling price and odometer data
     columns_to_scale = ['price', 'odometer']
@@ -90,7 +92,7 @@ def model_cleaning(cars_df):
 
     regr_cars_df[columns_to_scale] = scaled_features
     
-    return regr_cars_df
+    return regr_cars_df, new_df
 
 #cleaned datafram
 # regr_cars_df = model_cleaning()
@@ -103,7 +105,7 @@ def model_training(regr_cars_df):
     model_knn.fit(regr_cars_df)
 
     # Its important to use binary mode 
-    knnPickle = open('model_saves/car_recommend', 'wb') 
+    knnPickle = open('frontend/model_saves/car_recommend', 'wb') 
         
     # source, destination 
     pickle.dump(model_knn, knnPickle)  
@@ -115,11 +117,19 @@ def model_training(regr_cars_df):
 
 def model_load():
     # load the model from disk
-    return pickle.load(open('model_saves/car_recommend', 'rb'))
+    return pickle.load(open('frontend/model_saves/car_recommend', 'rb'))
     
 def recommendation_model(car_id):
     cars_df = load_data()
-    regr_cars_df = model_cleaning(cars_df)
+    regr_cars_df, new_df = model_cleaning(cars_df)
+
+    X = new_df.drop(['price', 'id'], axis =1).values
+    filename = 'frontend/model_saves/regression_model.pkl'
+    loaded_model = pickle.load(open(filename, 'rb'))
+    input = X[car_id].reshape(1,56)
+    predicted_price = loaded_model.predict(input)
+    print(f"This is the predicted price {predicted_price}")
+
     model_knn= model_training(regr_cars_df)
 
 
