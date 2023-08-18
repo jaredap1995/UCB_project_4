@@ -48,7 +48,10 @@ def team():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    # get list of matrix for our line data and send it to about page
+    chart_data = load_chart()
+    print('TEST chart_data:',chart_data)
+    return render_template('about.html', chart_data=chart_data)
 
 
 @app.route('/results', methods=['GET','POST'])
@@ -152,7 +155,7 @@ def car_details(car_id):
 
     return render_template('car.html', car = car, reccomendations=reccomendations)
 
-@app.route('/load_chart')
+# Fn to return a matrix of lists for line plot data on /about route
 def load_chart():
     # Retrieve data from PostgreSQL
     selected_manufacturers = ['toyota', 'nissan', 'tesla', 'bmw', 'audi', 'mazda', 'volvo', 'mercedes-benz','acura', 'ford']
@@ -187,7 +190,7 @@ def load_chart():
         chart_data[manufacturer]['avg_price'].append(avg_price)
         chart_data[manufacturer]['price_change'].append(price_change)
         chart_data[manufacturer]['percent_change'].append(percent_change)
-    return render_template('linePlot.html', chart_data=chart_data)
+    return chart_data
 
 @app.route('/send-email', methods=['POST'])
 def send_email():

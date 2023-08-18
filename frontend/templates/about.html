@@ -8,6 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel='stylesheet' href="{{ url_for ('static', filename = 'css/about.css') }}">
+
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -23,9 +26,36 @@
                     The graph below is just one example of how used car prices have been increasing over the years.
                 </p>
                 <p>Click on the Link Below to Explore the trends in Used Car Prices!</p>
-                <a href='/load_chart' alt='Car Guru graph'>Graph</a>
             </div>
         </div>
+        
+        <!-- LOAD GRAPH -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-10 text-center">
+                <div id="container_lineplot"></div>
+                <script type="text/javascript">
+                    anychart.onDocumentReady(function() {
+                        var chart_data = JSON.parse('{{ chart_data | tojson | safe }}'); // Parse the JSON data
+                        var chart = anychart.line();
+                        // Loop through manufacturers and create series for each
+                        for (var manufacturer in chart_data) {
+                            var seriesData = anychart.data.set(chart_data[manufacturer]['year'].map(function(value, index) {
+                                return [value, chart_data[manufacturer]['avg_price'][index]];
+                            }));
+                            var series = chart.line(seriesData);
+                            series.name(manufacturer);
+                        }
+                        chart.legend().enabled(true);
+                        chart.title("Average Prices for Selected Manufacturers");
+                        chart.container("container_lineplot");
+                        chart.draw();
+                    });
+                </script>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br><br>
+        <!-- LOAD GRAPH END -->
+        
 
         <!-- Features section -->
         <div class="row mb-4">
