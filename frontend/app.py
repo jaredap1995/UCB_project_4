@@ -197,8 +197,8 @@ def send_email():
     data = request.get_json()
     recipient_email = data['email']
 
-    SMTP_USER = ''
-    SMTP_PASSWORD = ''
+    SMTP_USER = 'jaredaperez1995@gmail.com'
+    SMTP_PASSWORD = 'y3AQcTnf1hNE7t4G'
     SMTP_PORT=587
     SMTP_SERVER= 'smtp-relay.brevo.com'
 
