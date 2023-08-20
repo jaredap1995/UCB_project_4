@@ -53,6 +53,9 @@ The purpose of this repository is to store all relevant data and scripting that 
 + Set up DB named `proj_4`
 + run `used_cars.sql` to set up the table and schema
 + Import the `cleaned_vehicles.csv` into the table
+### Regression model pickle file
++ Run `rand_forest_reg.ipynb` so regressor pkl file is saved into model_saves folder
++ **Warning** (~3 hour runtime)
 ## About the Data
 |Name|Type|Description|Website|
 |---|---|---|---|
