@@ -23,14 +23,14 @@ We created two machine learning models to perform the following for the search e
 - `Analysis Last Updated:` August 21st, 2023
 - `Report Last Updated:` August 21st, 2023
 ## Table of Contents
-* Introduction
-* Setup
-* About the Data
-* Machine Learning Models
-* Front-End
-* Challenges
-* Future Plans
-* Conclusion
+* [Introduction](#introduction)
+* [Setup](#setup)
+* [About the Data](#about-the-data)
+* [Machine Learning Models](#machine-learning-models)
+* [Front-End](#front-end)
+* [Challenges](#challenges)
+* [Future Plans](#future-plans)
+* [Conclusion](#conclusion)
 
 ## Introduction
 The purpose of this repository is to store all relevant data and scripting that enable the user to set up an interactive search engine which runs our machine learning models to search thousands of car listings and give you the most relevant recommendations and pricing. All tools and resources were produced for Project 4 of the 2023 UC Berkeley Data Analytics Bootcamp.
