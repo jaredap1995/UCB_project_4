@@ -127,7 +127,7 @@ def recommendation_model(car_id):
     input = X[car_id].reshape(1,56)
     predicted_price = int(loaded_model.predict(input)[0])
     # predicted_price=47000
-    print(f"This is the predicted price {predicted_price}")
+    # print(f"This is the predicted price {predicted_price}")
 
     model_knn= model_training(regr_cars_df)
 
