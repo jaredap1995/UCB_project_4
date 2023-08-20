@@ -1,5 +1,6 @@
 import psycopg2
 import json
+import numpy as np
 from flask import Flask, jsonify, render_template, request
 from datetime import datetime, timedelta
 import sys
@@ -16,9 +17,9 @@ from helper import get_df
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="project_4",
-                            user="jaredp",
-                            password="secret", #password="postgres"
+conn = psycopg2.connect(database="proj_4",
+                            user="postgres",
+                            password="postgres", #password="postgres"
                             host="localhost",
                             port = "5432"
                             # port="5433"
@@ -141,7 +142,6 @@ def car_details(car_id):
     price_prediction={'prediction': price_prediction}
     print(reccomendations) #This successfully pulls the reccomendations
 
-
     #Query for main result
     cur.execute(f"Select * from used_cars where id = {car_id}")
     car=cur.fetchone()
@@ -149,7 +149,7 @@ def car_details(car_id):
         return ValueError()
     car=pd.Series(car, index = columns).to_dict()
     car['price']=int(car['price'])
-    price_prediction['percent_error']=round(((car['price']-price_prediction['prediction'])/car['price'])*100, ndigits=1)
+    price_prediction['percent_error']=abs(np.round(((car['price']-price_prediction['prediction'])/car['price'])*100, decimals=1))
     query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
     car['image'] = get_image_url(query)
 
