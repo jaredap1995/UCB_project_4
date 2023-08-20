@@ -27,7 +27,7 @@ function generateStringOptions (array) {
 
 
 // Populating initial values
-document.getElementById('maxPriceRange').innerHTML = generateOptions(5000, 200000, 5000)
+document.getElementById('maxPriceRange').innerHTML = generateOptions(5000, 100000, 5000)
 
 let conditionsArray = ['any','good', 'excellent', 'fair', 'like new', 'new', 'salvage']
 let newConditionsArray = conditionsArray.map(function(x) { return x.charAt(0).toUpperCase() + x.slice(1,)})
