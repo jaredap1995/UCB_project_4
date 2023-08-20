@@ -20,8 +20,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Image</th>
                             <th>Manufacturer</th>
+                            <th>Type</th>
+                            <th>State</th>
                             <th>Year</th>
                             <th>Miles</th>
                             <th>Transmission</th>
@@ -34,14 +35,15 @@
                         <!-- Lets add a sort function-->
                         {% for result in results[:10] %}
                         <tr>
-                            <td><img src="{{ url_for('static', filename='results/' + result.image) }}" class="img-fluid" alt="Result"></td>
                             <td>{{ result.manufacturer }}</td>
+                            <td>{{ result.type }}</td>
+                            <td>{{ result.state }}</td>
                             <td>{{ result.year }}</td>
                             <td>{{ result.odometer }}</td>
                             <td>{{ result.transmission }}</td>
                             <td>{{ result.condition }}</td>
                             <td><a href="https://www.carmax.com/cars?search={{ result.manufacturer }}+{{ result.model }}">Shop for this car</a></td>
-                            <td><a href="{{ url_for('car_details', car_id=result.id) }}">Estimated Price Range {{ result.price_range }}</a></td>
+                            <td><a href="{{ url_for('car_details', car_id=result.id) }}">Explore this Car</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

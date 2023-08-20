@@ -20,7 +20,15 @@
 
                                 <div class="col-md-6 mb-4">
                                     <h1> {{ car.year }} {{ car.manufacturer }} </h1>
-                                    <p> <strong> Price Estimate: {{ car.price_predction }} </strong></p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Listed Price: {{ car.price }}</strong></p>
+                                        </div>
+                                        <div class="col-md-6 text-md-right">
+                                            <p><strong>Predicted Price: {{ price_prediction.prediction }}</strong></p>
+                                        </div>
+                                    </div>
+                                    <p><strong> Error in Price Prediction: {{ price_prediction.percent_error }}% </strong></p>
                                     <p> Condition: {{ car.condition }}</p>
                                     <p> Fuel Type: {{ car.fuel }}</p>
                                     <p> Miles: {{ car.odometer }} </p>
@@ -32,15 +40,56 @@
 
                                 <div class="col-md-6 mb-4">
                                     <div class="p-3 shadow">
-                                        <!-- Insert your image here -->
-                                        <img src="{{ car.image }}" alt="{{ car.year }} {{ car.manufacturer }}" class="img-fluid">
-                                        
-                                        <!-- Additional content can be added here if needed -->
+                                        <!-- Insert image here -->
+                                        <img src="{{ car.image }}" alt="{{ car.year }} {{ car.manufacturer }}" class="img-fluid">     
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+            </div>
+        </div>
+
+        <div class = 'container my-3 mb-3'>
+            <h2 id = 'reccomendation_header'> Other Cars You may Like According to Your Search</h2>
+            <div class = 'row mb-4'>
+                <div class = 'col-md-6'>
+                    <div class = 'p-3 shadow'>
+                        <div class = 'row'>
+                            <div class="col-md-12">
+                                <a href="{{ url_for('car_details', car_id=reccomendations[0].id) }}">
+                                    <h3>{{ reccomendations[0].manufacturer }} {{ reccomendations[0].year }}</h3>
+                                </a>
+                                <p> Condition: {{ reccomendations[0].condition }}</p>
+                                <p> Fuel Type: {{ reccomendations[0].fuel }}</p>
+                                <p> Miles: {{ reccomendations[0].odometer }} </p>
+                                <p> Type of Transmission: {{ reccomendations[0].transmission }} </p>
+                                <p> Wheel Drive Type: {{ reccomendations[0].drive }} </p>
+                                <p> Car Size: {{ reccomendations[0].size }} </p>
+                                <p> Car Type: {{ reccomendations[0].type }} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'col-md-6'>
+                    <div class = 'p-3 shadow'>
+                        <div class = 'row'>
+                            <div class="col-md-12">
+                                <a href="{{ url_for('car_details', car_id=reccomendations[1].id) }}">
+                                    <h3>{{ reccomendations[1].manufacturer }} {{ reccomendations[1].year }}</h3>
+                                </a>
+                                <p> Condition: {{ reccomendations[1].condition }}</p>
+                                <p> Fuel Type: {{ reccomendations[1].fuel }}</p>
+                                <p> Miles: {{ reccomendations[1].odometer }} </p>
+                                <p> Type of Transmission: {{ reccomendations[1].transmission }} </p>
+                                <p> Wheel Drive Type: {{ reccomendations[1].drive }} </p>
+                                <p> Car Size: {{ reccomendations[1].size }} </p>
+                                <p> Car Type: {{ reccomendations[1].type }} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         {% endblock %}

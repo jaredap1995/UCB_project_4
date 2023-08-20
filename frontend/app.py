@@ -16,9 +16,9 @@ from helper import get_df
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="postgres", #password="postgres"
+conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
                             port = "5432"
                             # port="5433"
@@ -133,10 +133,12 @@ def results():
 def car_details(car_id):
     
     columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
-    cur.execute(f"Select * from used_cars")
-    data=cur.fetchall()
-    data=pd.DataFrame(data, columns=columns)
-    reccomendations = recommendation_model(car_id)
+    # cur.execute(f"Select * from used_cars")
+    # data=cur.fetchall()
+    # data=pd.DataFrame(data, columns=columns)
+    # data['price']=data['price'].astype('int')
+    reccomendations, price_prediction = recommendation_model(car_id)
+    price_prediction={'prediction': price_prediction}
     print(reccomendations) #This successfully pulls the reccomendations
 
 
@@ -146,10 +148,12 @@ def car_details(car_id):
     if not car:
         return ValueError()
     car=pd.Series(car, index = columns).to_dict()
+    car['price']=int(car['price'])
+    price_prediction['percent_error']=round(((car['price']-price_prediction['prediction'])/car['price'])*100, ndigits=1)
     query = f"{car['year']} {car['manufacturer']} {car['size']} {car['type']}"
     car['image'] = get_image_url(query)
 
-    return render_template('car.html', car = car, reccomendations=reccomendations)
+    return render_template('car.html', car = car, reccomendations=reccomendations, price_prediction=price_prediction)
 
 # Fn to return a matrix of lists for line plot data on /about route
 def load_chart():

@@ -7,9 +7,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 
 def load_data():
-    conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
-                            password="postgres", #password="postgres"
+    conn = psycopg2.connect(database="project_4",
+                            user="jaredp",
+                            password="secret", #password="postgres"
                             host="localhost",
                             port = "5432")
     cur = conn.cursor()
@@ -27,8 +27,6 @@ def load_data():
 # cars_df = load_data()
 
 def model_cleaning(cars_df):
-    # cars_df = load_data()
-    print("line 30", cars_df)
 
     # dropping duplicates
     duplicate_cols = ['price', 'year', 'manufacturer', 'condition', 'cylinders', 'fuel', 'odometer', 'title_status', 'transmission', 'drive', 'size', 'type', 'paint_color', 'state']
@@ -105,7 +103,7 @@ def model_training(regr_cars_df):
     model_knn.fit(regr_cars_df)
 
     # Its important to use binary mode 
-    knnPickle = open('frontend/model_saves/car_recommend', 'wb') 
+    knnPickle = open('model_saves/car_recommend', 'wb') #Adjust to `frontend/model_saves/frontend` according to situations
         
     # source, destination 
     pickle.dump(model_knn, knnPickle)  
@@ -117,17 +115,18 @@ def model_training(regr_cars_df):
 
 def model_load():
     # load the model from disk
-    return pickle.load(open('frontend/model_saves/car_recommend', 'rb'))
+    return pickle.load(open('model_saves/car_recommend', 'rb'))
     
 def recommendation_model(car_id):
     cars_df = load_data()
     regr_cars_df, new_df = model_cleaning(cars_df)
 
-    X = new_df.drop(['price', 'id'], axis =1).values
-    filename = 'frontend/model_saves/regression_model.pkl'
-    loaded_model = pickle.load(open(filename, 'rb'))
-    input = X[car_id].reshape(1,56)
-    predicted_price = loaded_model.predict(input)
+    # X = new_df.drop(['price', 'id'], axis =1).values
+    # filename = 'frontend/model_saves/regression_model.pkl'
+    # loaded_model = pickle.load(open(filename, 'rb'))
+    # input = X[car_id].reshape(1,56)
+    # predicted_price = loaded_model.predict(input)
+    predicted_price=47000
     print(f"This is the predicted price {predicted_price}")
 
     model_knn= model_training(regr_cars_df)
@@ -139,10 +138,10 @@ def recommendation_model(car_id):
 
     recommended_cars = cars_df.iloc[indices[0]]
 
-    demo_dict = pd.DataFrame(recommended_cars[['price','manufacturer', 'fuel', 'title_status', 'type', 'paint_color', 'state', 'transmission', 'drive']][1:4])
+    demo_dict = pd.DataFrame(recommended_cars[['id','price','year','manufacturer', 'fuel', 'title_status', 'type', 'paint_color', 'state', 'transmission', 'drive', 'condition', 'size', 'odometer']][1:4])
     # demo_dict = demo_dict.reset_index()
     demo_dict = demo_dict.to_dict(orient='records')
 
-    return demo_dict
+    return demo_dict, predicted_price
 
 
