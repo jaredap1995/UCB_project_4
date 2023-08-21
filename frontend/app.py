@@ -17,8 +17,8 @@ from helper import get_df
 # Database Setup
 #################################################
 
-conn = psycopg2.connect(database="proj_4",
-                            user="postgres",
+conn = psycopg2.connect(database="proj_4", #project_4
+                            user="postgres", #postgres
                             password="postgres", #password="postgres"
                             host="localhost",
                             port = "5432"

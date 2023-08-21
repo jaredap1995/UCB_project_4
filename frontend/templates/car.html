@@ -19,7 +19,7 @@
                             <div class = 'row'>
 
                                 <div class="col-md-6 mb-4">
-                                    <h1> {{ car.year }} {{ car.manufacturer }} </h1>
+                                    <h1> {{ car.year }} {{ car.manufacturer.capitalize() }} </h1>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <p><strong>Listed Price: {{ car.price }}</strong></p>
@@ -29,13 +29,13 @@
                                         </div>
                                     </div>
                                     <p><strong> Error in Price Prediction: {{ price_prediction.percent_error }}% </strong></p>
-                                    <p> Condition: {{ car.condition }}</p>
-                                    <p> Fuel Type: {{ car.fuel }}</p>
+                                    <p> Condition: {{ car.condition.capitalize() }}</p>
+                                    <p> Fuel Type: {{ car.fuel.capitalize() }}</p>
                                     <p> Miles: {{ car.odometer }} </p>
-                                    <p> Type of Transmission: {{ car.transmission }} </p>
-                                    <p> Wheel Drive Type: {{ car.drive }} </p>
-                                    <p> Car Size: {{ car.size }} </p>
-                                    <p> Car Type: {{ car.type }} </p>
+                                    <p> Type of Transmission: {{ car.transmission.capitalize() }} </p>
+                                    <p> Wheel Drive Type: {{ car.drive.capitalize() }} </p>
+                                    <p> Car Size: {{ car.size.capitalize() }} </p>
+                                    <p> Car Type: {{ car.type.capitalize() }} </p>
                                 </div>
 
                                 <div class="col-md-6 mb-4">
@@ -53,39 +53,39 @@
 
         <div class = 'container my-3 mb-3'>
             <h2 id = 'reccomendation_header'> Other Cars You may Like According to Your Search</h2>
-            <div class = 'row mb-4'>
+            <div class = 'row mb-4 justify-content-center'>
                 <div class = 'col-md-6'>
                     <div class = 'p-3 shadow'>
                         <div class = 'row'>
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-box">
                                 <a href="{{ url_for('car_details', car_id=reccomendations[0].id) }}">
-                                    <h3>{{ reccomendations[0].manufacturer }} {{ reccomendations[0].year }}</h3>
+                                    <h3>{{ reccomendations[0].manufacturer.capitalize() }} {{ reccomendations[0].year }}</h3>
                                 </a>
-                                <p> Condition: {{ reccomendations[0].condition }}</p>
-                                <p> Fuel Type: {{ reccomendations[0].fuel }}</p>
+                                <p> Condition: {{ reccomendations[0].condition.capitalize() }}</p>
+                                <p> Fuel Type: {{ reccomendations[0].fuel.capitalize() }}</p>
                                 <p> Miles: {{ reccomendations[0].odometer }} </p>
-                                <p> Type of Transmission: {{ reccomendations[0].transmission }} </p>
+                                <p> Type of Transmission: {{ reccomendations[0].transmission.capitalize() }} </p>
                                 <p> Wheel Drive Type: {{ reccomendations[0].drive }} </p>
-                                <p> Car Size: {{ reccomendations[0].size }} </p>
-                                <p> Car Type: {{ reccomendations[0].type }} </p>
+                                <p> Car Size: {{ reccomendations[0].size.capitalize() }} </p>
+                                <p> Car Type: {{ reccomendations[0].type.capitalize() }} </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class = 'col-md-6'>
+                <div class = 'col-md-6 justify-content-between'>
                     <div class = 'p-3 shadow'>
-                        <div class = 'row'>
-                            <div class="col-md-12">
+                        <div class = 'row justify-content-center'>
+                            <div class="col-md-12 justify-content-between text-box">
                                 <a href="{{ url_for('car_details', car_id=reccomendations[1].id) }}">
-                                    <h3>{{ reccomendations[1].manufacturer }} {{ reccomendations[1].year }}</h3>
+                                    <h3>{{ reccomendations[1].manufacturer.capitalize() }} {{ reccomendations[1].year }}</h3>
                                 </a>
-                                <p> Condition: {{ reccomendations[1].condition }}</p>
-                                <p> Fuel Type: {{ reccomendations[1].fuel }}</p>
+                                <p> Condition: {{ reccomendations[1].condition.capitalize() }}</p>
+                                <p> Fuel Type: {{ reccomendations[1].fuel.capitalize() }}</p>
                                 <p> Miles: {{ reccomendations[1].odometer }} </p>
-                                <p> Type of Transmission: {{ reccomendations[1].transmission }} </p>
-                                <p> Wheel Drive Type: {{ reccomendations[1].drive }} </p>
-                                <p> Car Size: {{ reccomendations[1].size }} </p>
-                                <p> Car Type: {{ reccomendations[1].type }} </p>
+                                <p> Type of Transmission: {{ reccomendations[1].transmission.capitalize() }} </p>
+                                <p> Wheel Drive Type: {{ reccomendations[1].drive.capitalize() }} </p>
+                                <p> Car Size: {{ reccomendations[1].size.capitalize() }} </p>
+                                <p> Car Type: {{ reccomendations[1].type.capitalize() }} </p>
                             </div>
                         </div>
                     </div>

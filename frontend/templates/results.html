@@ -35,13 +35,13 @@
                         <!-- Lets add a sort function-->
                         {% for result in results[:10] %}
                         <tr>
-                            <td>{{ result.manufacturer }}</td>
-                            <td>{{ result.type }}</td>
-                            <td>{{ result.state }}</td>
+                            <td>{{ result.manufacturer.capitalize() }}</td>
+                            <td>{{ result.type.capitalize() }}</td>
+                            <td>{{ result.state.upper() }}</td>
                             <td>{{ result.year }}</td>
                             <td>{{ result.odometer }}</td>
-                            <td>{{ result.transmission }}</td>
-                            <td>{{ result.condition }}</td>
+                            <td>{{ result.transmission.capitalize() }}</td>
+                            <td>{{ result.condition.capitalize() }}</td>
                             <td><a href="https://www.carmax.com/cars?search={{ result.manufacturer }}+{{ result.model }}">Shop for this car</a></td>
                             <td><a href="{{ url_for('car_details', car_id=result.id) }}">Explore this Car</a></td>
                         </tr>
