@@ -103,7 +103,7 @@ def model_training(regr_cars_df):
     model_knn.fit(regr_cars_df)
 
     # Its important to use binary mode 
-    knnPickle = open('model_saves/car_recommend', 'wb') #Adjust to `frontend/model_saves/car_recommend` according to situations
+    knnPickle = open('frontend/model_saves/car_recommend', 'wb') #Adjust to `frontend/model_saves/car_recommend` according to situations
         
     # source, destination 
     pickle.dump(model_knn, knnPickle)  
