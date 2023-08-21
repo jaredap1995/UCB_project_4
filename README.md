@@ -112,7 +112,12 @@ The purpose of this repository is to store all relevant data and scripting that 
 * Python Matplotlib
 * Scikit-learn
 * Psycopg2
-* hvplot
+
+We used a k-Nearest Neighbors (KNN) unsupervised learning algorithm for our Recommendation model. In unsupervised learning, KNN is often used for clustering and recommendation systems due to it working very well at identifying similarities between items in a dataset. When used in a recommendation system, KNN identifies items that are similar to a given item and suggests these similar items to the user. We chose this model because it is known to be simple yet powerful and works well with large datasets.
+
+In our KNN model, we utilized the cosine similarity metric to measure the distance between data points. This metric accounts for the orientation of the vectors representing the data points, which is necessary for finding the similarities in our multidimensional dataset. We set the number of neighbors to four which allows us to recommend three additional cars for a given user selection.
+In our recommendation model, when a user selects a car, the model looks at the characteristics or features of the selected car and finds the three most similar cars in the dataset based on their feature values. The system then displays these recommendations, providing the user with additional options that meet their criteria.
+
 
 ## Front-End
 * Flask Web Application
