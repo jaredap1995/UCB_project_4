@@ -51,7 +51,7 @@ def team():
 def about():
     # get list of matrix for our line data and send it to about page
     chart_data = load_chart()
-    print('TEST chart_data:',chart_data)
+    # print('TEST chart_data:',chart_data)
     return render_template('about.html', chart_data=chart_data)
 
 
@@ -110,7 +110,7 @@ def results():
     columns=["price", "year","manufacturer","condition","cylinders","fuel","odometer","title_status","transmission","drive","size","type","paint_color","state","posting_date", 'id']
 
     results=cur.fetchall()
-    print(results)
+    # print(results)
     results=pd.DataFrame(results, columns=columns)
     results.columns=columns
     results=[results.iloc[s].to_dict() for s in range(len(results))]
@@ -140,7 +140,7 @@ def car_details(car_id):
     # data['price']=data['price'].astype('int')
     reccomendations, price_prediction = recommendation_model(car_id)
     price_prediction={'prediction': price_prediction}
-    print(reccomendations) #This successfully pulls the reccomendations
+    # print(reccomendations) #This successfully pulls the reccomendations
 
     #Query for main result
     cur.execute(f"Select * from used_cars where id = {car_id}")

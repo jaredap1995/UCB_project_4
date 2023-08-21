@@ -123,12 +123,12 @@ def recommendation_model(car_id):
     regr_cars_df, new_df = model_cleaning(cars_df)
 
     X = new_df.drop(['price', 'id'], axis =1).values
-    # filename = 'frontend/model_saves/regression_model.pkl'
-    # loaded_model = pickle.load(open(filename, 'rb'))
-    # input = X[car_id].reshape(1,56)
-    # predicted_price = int(loaded_model.predict(input)[0])
-    predicted_price=47000
-    print(f"This is the predicted price {predicted_price}")
+    filename = 'frontend/model_saves/regression_model.pkl'
+    loaded_model = pickle.load(open(filename, 'rb'))
+    input = X[car_id].reshape(1,56)
+    predicted_price = int(loaded_model.predict(input)[0])
+    # predicted_price=47000
+    # print(f"This is the predicted price {predicted_price}")
 
     model_knn= model_training(regr_cars_df)
 
