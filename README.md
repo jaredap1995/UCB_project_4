@@ -82,7 +82,7 @@ The purpose of this repository is to store all relevant data and scripting that 
 * K-nearest Neighbors Recommender
 
 ### Model 1: Elastic Net Price Prediction
-[File: elasticnet_regression.ipynb](UCB_project_4/elasticnet_regression.ipynb)
+[File: elasticnet_regression.ipynb](elasticnet_regression.ipynb)
 #### Tools
 * Jupyter Notebook
 * Python Pandas
