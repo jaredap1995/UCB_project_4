@@ -46,7 +46,7 @@ The purpose of this repository is to store all relevant data and scripting that 
 + Data found within Kaggle: [https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data]
 + Download csv file and place it within `data/` directory
 #### Clean Data
-[File: cleaning_analysis.ipynb](UCB_project_4/cleaning_analysis.ipynb)
+[File: cleaning_analysis.ipynb](cleaning_analysis.ipynb)
 + Run `cleaning_analysis.ipynb`
 + `cleaning_analysis.ipynb` creates a new csv file within `data/` named `cleaned_vehicles.csv`
 #### Data Retrieval from PostgreSQL
@@ -90,8 +90,11 @@ The purpose of this repository is to store all relevant data and scripting that 
 * Scikit-learn
 * Psycopg2
 
+The first regression model we tried to use to predict price was an Elastic Net Regression Model. This is a model that combines the characteristics of both Ridge Regression and Lasso Regression. Ridge regression focuses on adding penalty coefficients to lower the impact of certain features but not completely eliminating them, while Lasso Regression can remove features completely.
+
+The results of the first attempt of the model yielded an r^2 value of 0.28, which is not great. After using grid search with cross validation to tune the alpha and l1_ratio, we were able to improve the model and increase the r^2 value to 0.44. 
 ### Model 2: Random Forest Price Prediction (optimal)
-[File: rand_forest_reg.ipynb](UCB_project_4/rand_forest_reg.ipynb)
+[File: rand_forest_reg.ipynb](rand_forest_reg.ipynb)
 
 #### Tools
 * Jupyter Notebook
@@ -104,8 +107,11 @@ The purpose of this repository is to store all relevant data and scripting that 
 * Applied Feature Engineering
 * Applied Hyperparameter Tuning
 
+Random Forest Regressor gave optimal values as opposed to other ML methods. This was because the price prediction has no linear relationship and has a large set of features. This used cars data is best suited to being placed in buckets when attempting to predict the price of a used vehicle.  
+
+The final model after applying Feature importance methods along with hyper parameter tuning gave a bump in the models performance of an r^2 value of 0.85, which outperformed all other regression techniques our team applied.
 ### Model 3: K-nearest Neighbors Car Recommender
-[File: car_recommender.ipynb](UCB_project_4/car_recommender.ipynb)
+[File: car_recommender.ipynb](car_recommender.ipynb)
 
 * Jupyter Notebook
 * Python Pandas
